@@ -1,0 +1,22 @@
+{
+    "name": "ali/product",
+    "description": "Manage Product And Product Category.",
+    "type": "library",
+    "require": {
+        "callmeaf/base": "dev-master",
+        "callmeaf/media": "dev-master"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Ali\\Product\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "alikhoshkar",
+            "email": "alikhoshkar2000@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}
