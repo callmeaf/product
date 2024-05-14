@@ -1,5 +1,5 @@
 {
-    "name": "ali/product",
+    "name": "callmeaf/product",
     "description": "Manage Product And Product Category.",
     "type": "library",
     "require": {
@@ -9,7 +9,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Ali\\Product\\": "src/"
+            "Callmeaf\\Product\\": "src/"
         }
     },
     "authors": [
