@@ -14,51 +14,51 @@ class ProductFormRequestAuthorizer extends FormRequestAuthorizer
 
     public function create(): bool
     {
-        return userCan(PermissionName::PRODUCT_CATEGORY_STORE);
+        return userCan(PermissionName::PRODUCT_STORE);
     }
 
     public function store(): bool
     {
-        return userCan(PermissionName::PRODUCT_CATEGORY_STORE);
+        return userCan(PermissionName::PRODUCT_STORE);
     }
 
     public function show(): bool
     {
-        return userCan(PermissionName::PRODUCT_CATEGORY_SHOW);
+        return userCan(PermissionName::PRODUCT_SHOW);
     }
 
     public function edit(): bool
     {
-        return userCan(PermissionName::PRODUCT_CATEGORY_UPDATE);
+        return userCan(PermissionName::PRODUCT_UPDATE);
     }
 
     public function update(): bool
     {
-        return userCan(PermissionName::PRODUCT_CATEGORY_UPDATE);
+        return userCan(PermissionName::PRODUCT_UPDATE);
     }
 
     public function statusUpdate(): bool
     {
-        return userCan(PermissionName::PRODUCT_CATEGORY_UPDATE);
+        return userCan(PermissionName::PRODUCT_UPDATE);
     }
 
     public function destroy(): bool
     {
-        return userCan(PermissionName::PRODUCT_CATEGORY_DESTROY);
+        return userCan(PermissionName::PRODUCT_DESTROY);
     }
 
     public function trashed(): bool
     {
-        return userCan(PermissionName::PRODUCT_CATEGORY_TRASHED);
+        return userCan(PermissionName::PRODUCT_TRASHED);
     }
 
     public function restore(): bool
     {
-        return userCan(PermissionName::PRODUCT_CATEGORY_RESTORE);
+        return userCan(PermissionName::PRODUCT_RESTORE);
     }
 
     public function forceDestroy(): bool
     {
-        return userCan(PermissionName::PRODUCT_CATEGORY_FORCE_DESTROY);
+        return userCan(PermissionName::PRODUCT_FORCE_DESTROY);
     }
 }
