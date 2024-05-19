@@ -6,7 +6,7 @@ use Callmeaf\Media\Http\Resources\V1\Api\MediaResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ProductCategoryResource extends JsonResource
+class ProductResource extends JsonResource
 {
     public function __construct($resource,protected array|int $only = [])
     {
@@ -22,7 +22,6 @@ class ProductCategoryResource extends JsonResource
     {
         return toArrayResource(data: [
             'id' => fn() => $this->id,
-            'parent_id' => fn() => $this->parent_id,
             'status' => fn() => $this->status,
             'status_text' => fn() => $this->statusText,
             'type' => fn() => $this->type,
@@ -31,6 +30,10 @@ class ProductCategoryResource extends JsonResource
             'slug' => fn() => $this->slug,
             'summary' => fn() => $this->summary,
             'content' => fn() => $this->content,
+            'published_at' => fn() => $this->published_at,
+            'published_at_text' => fn() => $this->publishedAtText,
+            'expired_at' => fn() => $this->expired_at,
+            'expired_at_text' => fn() => $this->expiredAtText,
             'created_at' => fn() => $this->created_at,
             'created_at_text' => fn() => $this->createdAtText,
             'updated_at' => fn() => $this->updated_at,
@@ -38,8 +41,8 @@ class ProductCategoryResource extends JsonResource
             'deleted_at' => fn() => $this->deleted_at,
             'deleted_at_text' => fn() => $this->deletedAtText,
             'image' => fn() => new MediaResource($this->image,only: $this->only['!image'] ?? []),
-            'parent' => fn() => new ProductCategoryResource($this->parent,only: $this->only['!parent'] ?? []),
-            'children' => fn() => new ProductCategoryCollection($this->children,only: $this->only['!parent'] ?? []),
+            'cat_ids' => fn() => $this->cats()->pluck('id'),
+            'cats' => fn() => new ProductCategoryCollection($this->cats,only: $this->only['!cats'] ?? []),
         ],only: $this->only);
     }
 }

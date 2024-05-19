@@ -2,9 +2,8 @@
 
 namespace Callmeaf\Product\Http\Requests\V1\Api;
 
-use Callmeaf\Base\Enums\DateTimeFormat;
-use Callmeaf\User\Enums\UserStatus;
-use Callmeaf\User\Enums\UserType;
+use Callmeaf\Product\Enums\ProductCategoryStatus;
+use Callmeaf\Product\Enums\ProductCategoryType;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Enum;
@@ -28,8 +27,8 @@ class ProductCategoryStoreRequest extends FormRequest
     {
         return validationManager(rules: [
             'parent_id' => [Rule::exists(config('callmeaf-product-category.model'),'id')],
-            'status' => [new Enum(UserStatus::class)],
-            'type' => [new Enum(UserType::class)],
+            'status' => [new Enum(ProductCategoryStatus::class)],
+            'type' => [new Enum(ProductCategoryType::class)],
             'title' => ['string','min:3','max:255'],
             'slug' => ['string','min:3','max:255',Rule::unique(config('callmeaf-product-category.model'),'slug')],
             'summary' => ['string','min:3','max:255'],

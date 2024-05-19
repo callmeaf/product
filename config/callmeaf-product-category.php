@@ -37,6 +37,7 @@ return [
             'relations' => [],
             'columns' => [
                 'id',
+                'parent_id',
                 'type',
                 'status',
                 'title',
@@ -46,6 +47,7 @@ return [
             ],
             'attributes' => [
                 'id',
+                'parent_id',
                 'type',
                 'type_text',
                 'status',
@@ -60,6 +62,7 @@ return [
             'relations' => [],
             'attributes' => [
                 'id',
+                'parent_id',
                 'type',
                 'type_text',
                 'status',
@@ -74,6 +77,7 @@ return [
             'relations' => [],
             'attributes' => [
                 'id',
+                'parent_id',
                 'type',
                 'type_text',
                 'status',
@@ -90,6 +94,7 @@ return [
             'relations' => [],
             'attributes' => [
                 'id',
+                'parent_id',
                 'type',
                 'type_text',
                 'status',
@@ -104,6 +109,7 @@ return [
             'relations' => [],
             'attributes' => [
                 'id',
+                'parent_id',
                 'type',
                 'type_text',
                 'status',
@@ -118,6 +124,7 @@ return [
             'relations' => [],
             'attributes' => [
                 'id',
+                'parent_id',
                 'type',
                 'type_text',
                 'status',
@@ -134,6 +141,7 @@ return [
             'id_column' => 'id',
             'columns' => [
                 'id',
+                'parent_id',
                 'type',
                 'status',
                 'title',
@@ -147,6 +155,7 @@ return [
             'relations' => [],
             'attributes' => [
                 'id',
+                'parent_id',
                 'type',
                 'type_text',
                 'status',
@@ -161,6 +170,7 @@ return [
             'relations' => [],
             'columns' => [
                 'id',
+                'parent_id',
                 'type',
                 'status',
                 'title',
@@ -171,6 +181,7 @@ return [
             ],
             'attributes' => [
                 'id',
+                'parent_id',
                 'type',
                 'type_text',
                 'status',

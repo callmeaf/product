@@ -1,77 +1,36 @@
 <?php
 
 return [
-    'model' => \Callmeaf\Product\Models\ProductCategory::class,
-    'model_resource' => \Callmeaf\Product\Http\Resources\V1\Api\ProductCategoryResource::class,
-    'model_resource_collection' => \Callmeaf\Product\Http\Resources\V1\Api\ProductCategoryCollection::class,
-    'service' => \Callmeaf\Product\Services\V1\ProductCategoryService::class,
+    'model' => \Callmeaf\Product\Models\Product::class,
+    'model_resource' => \Callmeaf\Product\Http\Resources\V1\Api\ProductResource::class,
+    'model_resource_collection' => \Callmeaf\Product\Http\Resources\V1\Api\ProductCollection::class,
+    'service' => \Callmeaf\Product\Services\V1\ProductService::class,
     'default_values' => [
-        'status' => \Callmeaf\Product\Enums\ProductCategoryStatus::ACTIVE,
-        'type' => \Callmeaf\Product\Enums\ProductCategoryType::DEFAULT,
+        'status' => \Callmeaf\Product\Enums\ProductStatus::ACTIVE,
+        'type' => \Callmeaf\Product\Enums\ProductType::DEFAULT,
     ],
     'events' => [
-        \Callmeaf\Product\Events\ProductCategoryStored::class => [
+        \Callmeaf\Product\Events\ProductStored::class => [
             // listeners
         ],
-        \Callmeaf\Product\Events\ProductCategoryUpdated::class => [
+        \Callmeaf\Product\Events\ProductUpdated::class => [
             // listeners
         ],
-        \Callmeaf\Product\Events\ProductCategoryStatusUpdated::class => [
+        \Callmeaf\Product\Events\ProductStatusUpdated::class => [
             // listeners
         ],
-        \Callmeaf\Product\Events\ProductCategoryDestroyed::class => [
+        \Callmeaf\Product\Events\ProductDestroyed::class => [
             // listeners
         ],
-        \Callmeaf\Product\Events\ProductCategoryRestored::class => [
+        \Callmeaf\Product\Events\ProductRestored::class => [
             // listeners
         ],
-        \Callmeaf\Product\Events\ProductCategoryForceDestroyed::class => [
+        \Callmeaf\Product\Events\ProductForceDestroyed::class => [
             // listeners
         ],
     ],
     'validations' => [
-        'index' => [
-            'title' => false,
-            'slug' => false,
-        ],
-        'store' => [
-            'status' => true,
-            'type' => true,
-            'title' => true,
-            'slug' => true,
-            'summary' => false,
-            'content' => false,
-            'published_at' => false,
-            'expired_at' => false,
-        ],
-        'show' => [
-
-        ],
-        'update' => [
-            'status' => true,
-            'type' => true,
-            'title' => true,
-            'slug' => true,
-            'summary' => false,
-            'content' => false,
-            'published_at' => false,
-            'expired_at' => false,
-        ],
-        'status_update' => [
-            'status' => true,
-        ],
-        'destroy' => [
-            //
-        ],
-        'restore' => [
-            //
-        ],
-        'trashed' => [
-            //
-        ],
-        'force_destroy' => [
-            //
-        ],
+        'product' => \Callmeaf\Product\Utilities\V1\Product\Api\ProductFormRequestValidator::class,
     ],
     'resources' => [
         'index' => [
@@ -133,6 +92,7 @@ return [
                 'expired_at_text',
                 'created_at_text',
                 'updated_at_text',
+                'cat_ids',
             ],
         ],
         'update' => [
@@ -259,13 +219,13 @@ return [
         ],
     ],
     'controllers' => [
-        'users' => \Callmeaf\Product\Http\Controllers\V1\Api\ProductCategoryController::class,
+        'products' => \Callmeaf\Product\Http\Controllers\V1\Api\ProductController::class,
     ],
     'form_request_authorizers' => [
-        'product_category' => \Callmeaf\Product\Utilities\V1\ProductCategoryFormRequestAuthorizer::class,
+        'product' => \Callmeaf\Product\Utilities\V1\Product\Api\ProductFormRequestAuthorizer::class,
     ],
     'middlewares' => [
-        'global' => [],
+        'product' => \Callmeaf\Product\Utilities\V1\Product\Api\ProductControllerMiddleware::class,
     ],
-    'searcher' => \Callmeaf\Product\Utilities\V1\ProductCategorySearcher::class,
+    'searcher' => \Callmeaf\Product\Utilities\V1\Product\Api\ProductSearcher::class,
 ];

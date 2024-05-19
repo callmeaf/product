@@ -68,7 +68,7 @@ class ProductCategoryController extends ApiController
         try {
             $productCategory = $this->productCategoryService->setModel($productCategory)->getModel(asResource: true,attributes: config('callmeaf-product-category.resources.show.attributes'),relations: config('callmeaf-product-category.resources.show.relations'));
             return apiResponse([
-                'productCategory' => $productCategory,
+                'product_category' => $productCategory,
             ],__('callmeaf-base::v1.successful_loaded'));
         } catch (\Exception $exception) {
             report($exception);
@@ -83,7 +83,7 @@ class ProductCategoryController extends ApiController
                 ProductCategoryUpdated::class,
             ])->getModel(asResource: true,attributes: config('callmeaf-product-category.resources.update.attributes'),relations: config('callmeaf-product-category.resources.update.relations'));
             return apiResponse([
-                'productCategory' => $productCategory,
+                'product_category' => $productCategory,
             ],__('callmeaf-base::v1.successful_updated', [
                 'title' =>  $productCategory->responseTitles('update')
             ]));
@@ -100,7 +100,7 @@ class ProductCategoryController extends ApiController
                 'status' => $request->get('status'),
             ])->getModel(asResource: true,attributes: config('callmeaf-product-category.resources.status_update.attributes'),relations: config('callmeaf-product-category.resources.status_update.relations'));
             return apiResponse([
-                'productCategory' => $productCategory,
+                'product_category' => $productCategory,
             ],__('callmeaf-base::v1.successful_updated', [
                 'title' =>  $productCategory->responseTitles('status_update')
             ]));
@@ -117,7 +117,7 @@ class ProductCategoryController extends ApiController
                 ProductCategoryDestroyed::class,
             ])->getModel(asResource: true,attributes: config('callmeaf-product-category.resources.destroy.attributes'),relations: config('callmeaf-product-category.resources.destroy.relations'));
             return apiResponse([
-                'productCategory' => $productCategory,
+                'product_category' => $productCategory,
             ],__('callmeaf-base::v1.successful_deleted', [
                 'title' =>  $productCategory->responseTitles('destroy')
             ]));
@@ -135,7 +135,7 @@ class ProductCategoryController extends ApiController
                 ProductCategoryRestored::class
             ])->getModel(asResource: true,attributes: config('callmeaf-product-category.resources.restore.attributes'),relations: config('callmeaf-product-category.resources.restore.relations'));
             return apiResponse([
-                'productCategory' => $productCategory,
+                'product_category' => $productCategory,
             ],__('callmeaf-base::v1.successful_restored',[
                 'title' =>  $productCategory->responseTitles('restore')
             ]));
@@ -169,7 +169,7 @@ class ProductCategoryController extends ApiController
                 ProductCategoryForceDestroyed::class,
             ])->getModel(asResource: true,attributes: config('callmeaf-product-category.resources.force_destroy.attributes'),relations: config('callmeaf-product-category.resources.force_destroy.relations'));
             return apiResponse([
-                'productCategory' => $productCategory,
+                'product_category' => $productCategory,
             ],__('callmeaf-base::v1.successful_force_destroyed',[
                 'title' =>  $productCategory->responseTitles('force_destroy')
             ]));

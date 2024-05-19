@@ -23,6 +23,7 @@ class ProductCategoryCollection extends ResourceCollection
         return [
             'data' => $this->collection->map(fn($productCategory) => toArrayResource(data: [
                 'id' => fn() => $productCategory->id,
+                'parent_id' => fn() => $productCategory->parent_id,
                 'status' => fn() => $productCategory->status,
                 'status_text' => fn() => $productCategory->statusText,
                 'type' => fn() => $productCategory->type,
@@ -38,6 +39,8 @@ class ProductCategoryCollection extends ResourceCollection
                 'deleted_at' => fn() => $productCategory->deleted_at,
                 'deleted_at_text' => fn() => $productCategory->deletedAtText,
                 'image' => fn() => new MediaResource($this->image,only: $this->only['!image'] ?? []),
+                'parent' => fn() => new ProductCategoryResource($this->parent,only: $this->only['!parent'] ?? []),
+                'children' => fn() => new ProductCategoryCollection($this->children,only: $this->only['!parent'] ?? []),
             ],only: $this->only)),
         ];
     }

@@ -2,6 +2,8 @@
 
 use Callmeaf\Product\Enums\ProductCategoryStatus;
 use Callmeaf\Product\Enums\ProductCategoryType;
+use Callmeaf\Product\Enums\ProductStatus;
+use Callmeaf\Product\Enums\ProductType;
 
 return [
     ProductCategoryStatus::class => [
@@ -9,6 +11,13 @@ return [
         ProductCategoryStatus::INACTIVE->name => 'غیرفعال',
     ],
     ProductCategoryType::class => [
+        ProductCategoryType::DEFAULT->name => 'پیش فرض',
+    ],
+    ProductStatus::class => [
+        ProductStatus::ACTIVE->name => 'فعال',
+        ProductStatus::INACTIVE->name => 'غیرفعال',
+    ],
+    ProductType::class => [
         ProductCategoryType::DEFAULT->name => 'پیش فرض',
     ],
 ];
