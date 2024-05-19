@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
+            $table->string('locale')->nullable();
             $table->string('status')->nullable();
             $table->string('type')->nullable();
             $table->foreignIdFor(\Callmeaf\User\Models\User::class,'author_id')->nullable()->constrained(getTableName(\Callmeaf\User\Models\User::class))->nullOnDelete();

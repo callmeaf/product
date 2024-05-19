@@ -8,6 +8,7 @@ use Callmeaf\Base\Traits\HasDate;
 use Callmeaf\Base\Traits\HasParent;
 use Callmeaf\Base\Traits\HasStatus;
 use Callmeaf\Base\Traits\HasType;
+use Callmeaf\Base\Traits\Localeable;
 use Callmeaf\Product\Enums\ProductCategoryStatus;
 use Callmeaf\Product\Enums\ProductCategoryType;
 use Illuminate\Database\Eloquent\Model;
@@ -15,7 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ProductCategory extends Model implements HasResponseTitles,HasEnum
 {
-    use HasParent,HasDate,HasStatus,HasType,SoftDeletes;
+    use HasParent,HasDate,HasStatus,HasType,SoftDeletes,Localeable;
     protected $fillable = [
         'status',
         'type',

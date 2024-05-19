@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('product_categories', function (Blueprint $table) {
             $table->id();
+            $table->string('locale')->nullable();
             $table->string('status')->nullable();
             $table->string('type')->nullable();
             $table->foreignIdFor(\Callmeaf\Product\Models\ProductCategory::class,'parent_id')->nullable()->constrained(getTableName(\Callmeaf\Product\Models\ProductCategory::class))->nullOnDelete();

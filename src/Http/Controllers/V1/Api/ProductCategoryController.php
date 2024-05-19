@@ -19,6 +19,7 @@ use Callmeaf\Product\Http\Requests\V1\Api\ProductCategoryTrashedIndexRequest;
 use Callmeaf\Product\Http\Requests\V1\Api\ProductCategoryUpdateRequest;
 use Callmeaf\Product\Models\ProductCategory;
 use Callmeaf\Product\Services\V1\ProductCategoryService;
+use Illuminate\Support\Facades\Log;
 
 class ProductCategoryController extends ApiController
 {

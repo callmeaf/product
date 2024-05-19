@@ -7,6 +7,7 @@ use Callmeaf\Base\Contracts\HasResponseTitles;
 use Callmeaf\Base\Traits\HasDate;
 use Callmeaf\Base\Traits\HasStatus;
 use Callmeaf\Base\Traits\HasType;
+use Callmeaf\Base\Traits\Localeable;
 use Callmeaf\Base\Traits\Publishable;
 use Callmeaf\Product\Enums\ProductStatus;
 use Callmeaf\Product\Enums\ProductType;
@@ -16,7 +17,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model implements HasResponseTitles,HasEnum
 {
-    use HasDate,HasStatus,HasType,SoftDeletes,Publishable;
+    use HasDate,HasStatus,HasType,SoftDeletes,Publishable,Localeable;
     protected $fillable = [
         'status',
         'type',
