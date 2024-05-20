@@ -12,6 +12,7 @@ return [
     ],
     ProductCategoryType::class => [
         ProductCategoryType::DEFAULT->name => 'پیش فرض',
+        ProductCategoryType::PACKAGE->name => 'پکیج'
     ],
     ProductStatus::class => [
         ProductStatus::ACTIVE->name => 'فعال',

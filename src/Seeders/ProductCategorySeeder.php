@@ -18,11 +18,15 @@ class ProductCategorySeeder extends Seeder
          * @var PermissionService $productCategoryService
          */
         $productCategoryService = app(config('callmeaf-product-category.service'));
-        foreach (PermissionName::cases() as $productCategoryNameCase) {
-            $productCategoryService->freshQuery()->create([
-                'title' => '',
-                'name' => $productCategoryNameCase->value,
-            ]);
-        }
+        $productCategoryService->freshQuery()->create([
+            'locale' => 'en',
+            'title' => 'Default',
+            'slug' => 'en_default',
+        ]);
+        $productCategoryService->freshQuery()->create([
+            'locale' => 'fa',
+            'title' => 'پیش فرض',
+            'slug' => 'fa_default',
+        ]);
     }
 }

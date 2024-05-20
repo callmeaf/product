@@ -12,6 +12,7 @@ use Callmeaf\Base\Traits\Localeable;
 use Callmeaf\Product\Enums\ProductCategoryStatus;
 use Callmeaf\Product\Enums\ProductCategoryType;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ProductCategory extends Model implements HasResponseTitles,HasEnum
@@ -31,6 +32,11 @@ class ProductCategory extends Model implements HasResponseTitles,HasEnum
         'status' => ProductCategoryStatus::class,
         'type' => ProductCategoryType::class,
     ];
+
+    public function products(): BelongsToMany
+    {
+        return $this->belongsToMany(config('callmeaf-product.model'),'product_category','product_category_id','product_id');
+    }
 
     public function responseTitles(string $key): string
     {

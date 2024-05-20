@@ -12,6 +12,7 @@ return [
     ],
     ProductCategoryType::class => [
         ProductCategoryType::DEFAULT->name => 'Default',
+        ProductCategoryType::PACKAGE->name => 'Package',
     ],
     ProductStatus::class => [
         ProductStatus::ACTIVE->name => 'Active',

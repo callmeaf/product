@@ -20,7 +20,7 @@ return [
             // listeners
         ],
         \Callmeaf\Product\Events\ProductCategoryDestroyed::class => [
-            // listeners
+            \Callmeaf\Product\Listeners\ChangeProductsCategoriesToDefault::class,
         ],
         \Callmeaf\Product\Events\ProductCategoryRestored::class => [
             // listeners
@@ -216,4 +216,7 @@ return [
         'product_category' => \Callmeaf\Product\Utilities\V1\ProductCategory\Api\ProductCategoryControllerMiddleware::class,
     ],
     'searcher' => \Callmeaf\Product\Utilities\V1\ProductCategory\Api\ProductCategorySearcher::class,
+    'seeders' => [
+        \Callmeaf\Product\Seeders\ProductCategorySeeder::class,
+    ],
 ];

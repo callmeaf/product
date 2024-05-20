@@ -2,6 +2,7 @@
 
 namespace Callmeaf\Product;
 
+use Database\Seeders\DatabaseSeeder;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 
@@ -30,6 +31,7 @@ class CallmeafProductServiceProvider extends ServiceProvider
         $this->registerEvents();
         $this->registerViews();
         $this->registerLang();
+        $this->registerSeeders();
     }
 
     private function registerConfig()
@@ -67,6 +69,14 @@ class CallmeafProductServiceProvider extends ServiceProvider
                 }
             });
         }
+
+        foreach (config('callmeaf-product-category.events') as $event => $listeners) {
+            Event::listen($event,function($event) use ($listeners) {
+                foreach($listeners as $listener) {
+                    app($listener)->handle($event);
+                }
+            });
+        }
     }
 
     private function registerViews(): void
@@ -89,5 +99,12 @@ class CallmeafProductServiceProvider extends ServiceProvider
         $this->publishes([
             self::LANG_DIR => $langPathFromVendor,
         ],self::LANG_GROUP);
+    }
+
+    private function registerSeeders(): void
+    {
+        $this->callAfterResolving(DatabaseSeeder::class,function ($seeder) {
+            $seeder->callOnce(config('callmeaf-product-category.seeders'));
+        });
     }
 }
