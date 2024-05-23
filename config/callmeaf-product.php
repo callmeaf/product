@@ -80,6 +80,7 @@ return [
             'relations' => [],
             'attributes' => [
                 'id',
+                'author_id',
                 'type',
                 'type_text',
                 'status',
@@ -93,6 +94,11 @@ return [
                 'created_at_text',
                 'updated_at_text',
                 'cat_ids',
+                'author',
+                '!author' => [
+                    'id',
+                    'mobile'
+                ],
             ],
         ],
         'update' => [

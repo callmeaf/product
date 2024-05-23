@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('locale')->nullable();
             $table->string('status')->nullable();
             $table->string('type')->nullable();
-            $table->foreignIdFor(\Callmeaf\User\Models\User::class,'author_id')->nullable()->constrained(getTableName(\Callmeaf\User\Models\User::class))->nullOnDelete();
+            $table->foreignIdFor(config('callmeaf-user.model'),'author_id')->nullable()->constrained(getTableName(config('callmeaf-user.model')))->nullOnDelete();
             $table->string('title')->nullable();
             $table->string('slug')->unique()->nullable();
             $table->string('summary')->nullable();

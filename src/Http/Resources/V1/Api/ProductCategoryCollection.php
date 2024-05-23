@@ -38,9 +38,9 @@ class ProductCategoryCollection extends ResourceCollection
                 'updated_at_text' => fn() => $productCategory->updatedAtText,
                 'deleted_at' => fn() => $productCategory->deleted_at,
                 'deleted_at_text' => fn() => $productCategory->deletedAtText,
-                'image' => fn() => new MediaResource($this->image,only: $this->only['!image'] ?? []),
-                'parent' => fn() => new ProductCategoryResource($this->parent,only: $this->only['!parent'] ?? []),
-                'children' => fn() => new ProductCategoryCollection($this->children,only: $this->only['!parent'] ?? []),
+                'image' => fn() => new (config('callmeaf-media.model_resource'))($this->image,only: $this->only['!image'] ?? []),
+                'parent' => fn() => new (config('callmeaf-product-category.model_resource'))($this->parent,only: $this->only['!parent'] ?? []),
+                'children' => fn() => new (config('callmeaf-product-category.model_resource_collection'))($this->children,only: $this->only['!parent'] ?? []),
             ],only: $this->only)),
         ];
     }

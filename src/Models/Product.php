@@ -4,6 +4,7 @@ namespace Callmeaf\Product\Models;
 
 use Callmeaf\Base\Contracts\HasEnum;
 use Callmeaf\Base\Contracts\HasResponseTitles;
+use Callmeaf\Base\Traits\HasAuthor;
 use Callmeaf\Base\Traits\HasDate;
 use Callmeaf\Base\Traits\HasStatus;
 use Callmeaf\Base\Traits\HasType;
@@ -17,8 +18,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model implements HasResponseTitles,HasEnum
 {
-    use HasDate,HasStatus,HasType,SoftDeletes,Publishable,Localeable;
+    use HasDate,HasStatus,HasType,SoftDeletes,Publishable,Localeable,HasAuthor;
     protected $fillable = [
+        'author_id',
         'status',
         'type',
         'title',

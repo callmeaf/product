@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('product_category', function (Blueprint $table) {
-            $table->foreignIdFor(\Callmeaf\Product\Models\ProductCategory::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(\Callmeaf\Product\Models\Product::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(config('callmeaf-product-category.model'))->constrained(getTableName(config('callmeaf-product-category.model')))->cascadeOnDelete();
+            $table->foreignIdFor(config('callmeaf-product.model'))->constrained(getTableName(config('callmeaf-product.model')))->cascadeOnDelete();
         });
     }
 

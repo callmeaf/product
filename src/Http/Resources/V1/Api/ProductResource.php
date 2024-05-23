@@ -3,6 +3,7 @@
 namespace Callmeaf\Product\Http\Resources\V1\Api;
 
 use Callmeaf\Media\Http\Resources\V1\Api\MediaResource;
+use Callmeaf\User\Http\Resources\V1\Api\UserResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -22,6 +23,7 @@ class ProductResource extends JsonResource
     {
         return toArrayResource(data: [
             'id' => fn() => $this->id,
+            'author_id' => fn() => $this->author_id,
             'status' => fn() => $this->status,
             'status_text' => fn() => $this->statusText,
             'type' => fn() => $this->type,
@@ -40,9 +42,10 @@ class ProductResource extends JsonResource
             'updated_at_text' => fn() => $this->updatedAtText,
             'deleted_at' => fn() => $this->deleted_at,
             'deleted_at_text' => fn() => $this->deletedAtText,
-            'image' => fn() => new MediaResource($this->image,only: $this->only['!image'] ?? []),
+            'image' => fn() => new (config('callmeaf-media.model_resource'))($this->image,only: $this->only['!image'] ?? []),
             'cat_ids' => fn() => $this->cats()->pluck('id'),
-            'cats' => fn() => new ProductCategoryCollection($this->cats,only: $this->only['!cats'] ?? []),
+            'cats' => fn() => new (config('callmeaf-product-category.model_resource_collection'))($this->cats,only: $this->only['!cats'] ?? []),
+            'author' => fn() => new (config('callmeaf-user.model_resource'))($this->author,only: $this->only['!author'] ?? [])
         ],only: $this->only);
     }
 }

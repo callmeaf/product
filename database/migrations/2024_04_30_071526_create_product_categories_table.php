@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('locale')->nullable();
             $table->string('status')->nullable();
             $table->string('type')->nullable();
-            $table->foreignIdFor(\Callmeaf\Product\Models\ProductCategory::class,'parent_id')->nullable()->constrained(getTableName(\Callmeaf\Product\Models\ProductCategory::class))->nullOnDelete();
+            $table->foreignIdFor(config('callmeaf-product-category.model'),'parent_id')->nullable()->constrained(getTableName(config('callmeaf-product-category.model')))->nullOnDelete();
             $table->string('title')->nullable();
             $table->string('slug')->unique()->nullable();
             $table->string('summary')->nullable();
