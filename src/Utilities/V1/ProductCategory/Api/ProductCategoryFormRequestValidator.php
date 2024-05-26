@@ -72,4 +72,19 @@ class ProductCategoryFormRequestValidator extends FormRequestValidator
     {
         return [];
     }
+
+    public function imageUpdate(): array
+    {
+        return [
+            'image' => true,
+        ];
+    }
+
+    public function imagesUpdate(): array
+    {
+        return [
+            'images' => true,
+            'images.*' => true,
+        ];
+    }
 }

@@ -14,10 +14,12 @@ use Callmeaf\Product\Enums\ProductCategoryType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class ProductCategory extends Model implements HasResponseTitles,HasEnum
+class ProductCategory extends Model implements HasResponseTitles,HasEnum,HasMedia
 {
-    use HasParent,HasDate,HasStatus,HasType,SoftDeletes,Localeable;
+    use HasParent,HasDate,HasStatus,HasType,SoftDeletes,Localeable,InteractsWithMedia;
     protected $fillable = [
         'status',
         'type',

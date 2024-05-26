@@ -15,10 +15,12 @@ use Callmeaf\Product\Enums\ProductType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Product extends Model implements HasResponseTitles,HasEnum
+class Product extends Model implements HasResponseTitles,HasEnum,HasMedia
 {
-    use HasDate,HasStatus,HasType,SoftDeletes,Publishable,Localeable,HasAuthor;
+    use HasDate,HasStatus,HasType,SoftDeletes,Publishable,Localeable,HasAuthor,InteractsWithMedia;
     protected $fillable = [
         'author_id',
         'status',

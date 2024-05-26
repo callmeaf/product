@@ -5,8 +5,12 @@ namespace Callmeaf\Product\Http\Controllers\V1\Api;
 use Callmeaf\Base\Http\Controllers\V1\Api\ApiController;
 use Callmeaf\Product\Events\ProductDestroyed;
 use Callmeaf\Product\Events\ProductForceDestroyed;
+use Callmeaf\Product\Events\ProductIndexed;
 use Callmeaf\Product\Events\ProductRestored;
+use Callmeaf\Product\Events\ProductShowed;
+use Callmeaf\Product\Events\ProductStatusUpdated;
 use Callmeaf\Product\Events\ProductStored;
+use Callmeaf\Product\Events\ProductTrashed;
 use Callmeaf\Product\Events\ProductUpdated;
 use Callmeaf\Product\Http\Requests\V1\Api\ProductDestroyRequest;
 use Callmeaf\Product\Http\Requests\V1\Api\ProductForceDestroyRequest;
@@ -36,7 +40,9 @@ class ProductController extends ApiController
                 relations: config('callmeaf-product.resources.index.relations'),
                 columns: config('callmeaf-product.resources.index.columns'),
                 filters: $request->validated(),
-            )->getCollection(asResourceCollection: true,asResponseData: true,attributes: config('callmeaf-product.resources.index.attributes'));
+            )->getCollection(asResourceCollection: true,asResponseData: true,attributes: config('callmeaf-product.resources.index.attributes'),events: [
+                ProductIndexed::class,
+            ]);
             return apiResponse([
                 'products' => $products,
             ],__('callmeaf-base::v1.successful_loaded'));
@@ -66,7 +72,14 @@ class ProductController extends ApiController
     public function show(ProductShowRequest $request,Product $product)
     {
         try {
-            $product = $this->productService->setModel($product)->getModel(asResource: true,attributes: config('callmeaf-product.resources.show.attributes'),relations: config('callmeaf-product.resources.show.relations'));
+            $product = $this->productService->setModel($product)->getModel(
+                asResource: true,
+                attributes: config('callmeaf-product.resources.show.attributes'),
+                relations: config('callmeaf-product.resources.show.relations'),
+                events: [
+                    ProductShowed::class,
+                ],
+            );
             return apiResponse([
                 'product' => $product,
             ],__('callmeaf-base::v1.successful_loaded'));
@@ -98,6 +111,8 @@ class ProductController extends ApiController
         try {
             $product = $this->productService->setModel($product)->update([
                 'status' => $request->get('status'),
+            ],events: [
+                ProductStatusUpdated::class,
             ])->getModel(asResource: true,attributes: config('callmeaf-product.resources.status_update.attributes'),relations: config('callmeaf-product.resources.status_update.relations'));
             return apiResponse([
                 'product' => $product,
@@ -152,7 +167,9 @@ class ProductController extends ApiController
                 relations: config('callmeaf-product.resources.trashed.relations'),
                 columns: config('callmeaf-product.resources.trashed.columns'),
                 filters: $request->validated(),
-            )->getCollection(asResourceCollection: true,asResponseData: true,attributes: config('callmeaf-product.resources.trashed.attributes'));
+            )->getCollection(asResourceCollection: true,asResponseData: true,attributes: config('callmeaf-product.resources.trashed.attributes'),events: [
+                ProductTrashed::class,
+            ]);
             return apiResponse([
                 'products' => $products,
             ],__('callmeaf-base::v1.successful_loaded'));
