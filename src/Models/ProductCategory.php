@@ -40,15 +40,15 @@ class ProductCategory extends Model implements HasResponseTitles,HasEnum,HasMedi
         return $this->belongsToMany(config('callmeaf-product.model'),'product_category','product_category_id','product_id');
     }
 
-    public function responseTitles(string $key): string
+    public function responseTitles(string $key,string $default = ''): string
     {
         return [
-            'store' => $this->title,
-            'update' => $this->title,
-            'status_update' => $this->title,
-            'destroy' => $this->title,
-            'restore' => $this->title,
-            'force_destroy' => $this->title,
+            'store' => $this->title ?? $default,
+            'update' => $this->title ?? $default,
+            'status_update' => $this->title ?? $default,
+            'destroy' => $this->title ?? $default,
+            'restore' => $this->title ?? $default,
+            'force_destroy' => $this->title ?? $default,
         ][$key];
     }
 

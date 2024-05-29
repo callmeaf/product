@@ -1,5 +1,6 @@
 <?php
 
+use Callmeaf\Package\Enums\PackageType;
 use Callmeaf\Product\Enums\ProductCategoryStatus;
 use Callmeaf\Product\Enums\ProductCategoryType;
 use Callmeaf\Product\Enums\ProductStatus;
@@ -20,5 +21,8 @@ return [
     ],
     ProductType::class => [
         ProductType::DEFAULT->name => 'Default',
+    ],
+    PackageType::class => [
+        PackageType::USER_ACCOUNT->name => 'User Account',
     ],
 ];

@@ -6,6 +6,7 @@ use Callmeaf\Media\Http\Resources\V1\Api\MediaResource;
 use Callmeaf\User\Http\Resources\V1\Api\UserResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Log;
 
 class ProductResource extends JsonResource
 {

@@ -3,7 +3,9 @@
 namespace Callmeaf\Product\Events;
 
 use Callmeaf\Product\Models\Product;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Queue\SerializesModels;
 
 class ProductIndexed
@@ -13,7 +15,7 @@ class ProductIndexed
     /**
      * Create a new event instance.
      */
-    public function __construct(public Product $product)
+    public function __construct(public LengthAwarePaginator|Collection|\Illuminate\Support\Collection|null $products)
     {
 
     }
