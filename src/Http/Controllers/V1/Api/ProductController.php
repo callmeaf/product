@@ -195,4 +195,18 @@ class ProductController extends ApiController
             return apiResponse([],$exception);
         }
     }
+
+
+    public function imageUpdate(VariationImageUpdateRequest $request,Variation $variation)
+    {
+        try {
+            $this->variationService->createMedia(file: $request->file('image'),collection: MediaCollection::IMAGE,disk: MediaDisk::VARIATIONS)->getModel(asResource: true,events: [
+                VariationImageUpdated::class,
+            ]);
+            return apiResponse([],__('callmeaf-base::v1.successful_updated_non_title'));
+        } catch (\Exception $exception) {
+            report($exception);
+            return apiResponse([],$exception);
+        }
+    }
 }

@@ -212,7 +212,7 @@ class ProductCategoryController extends ApiController
                 ProductCategoryImageUpdated::class,
             ]);
 
-             return apiResponse([],__('base::v1.successful_loaded'));
+             return apiResponse([],__('callmeaf-base::v1.successful_updated_non_title'));
         } catch (\Exception $exception) {
             report($exception);
             return apiResponse([],$exception);

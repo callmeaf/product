@@ -61,4 +61,9 @@ class ProductFormRequestAuthorizer extends FormRequestAuthorizer
     {
         return userCan(PermissionName::PRODUCT_FORCE_DESTROY);
     }
+
+    public function imageUpdate(): bool
+    {
+        return userCan(PermissionName::PRODUCT_STORE);
+    }
 }
