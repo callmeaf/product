@@ -10,7 +10,6 @@ Route::prefix(config('callmeaf-base.api.prefix_url'))->as(config('callmeaf-base.
             Route::patch('/restore','restore')->name('restore');
             Route::delete('/force','forceDestroy')->name('force_destroy');
             Route::patch('/image','imageUpdate')->name('image.update');
-            Route::patch('/images','imagesUpdate')->name('images.update');
         });
         Route::get('/trashed/index','trashed')->name('trashed.index');
     });
@@ -24,7 +23,7 @@ Route::prefix(config('callmeaf-base.api.prefix_url'))->as(config('callmeaf-base.
             Route::patch('/status','statusUpdate')->name('status_update');
             Route::patch('/restore','restore')->name('restore');
             Route::delete('/force','forceDestroy')->name('force_destroy');
-            Route::patch('/image','imageUpdate')->name('media.update');
+            Route::patch('/image','imageUpdate')->name('image.update');
         });
         Route::get('/trashed/index','trashed')->name('trashed.index');
     });

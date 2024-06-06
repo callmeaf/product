@@ -3,8 +3,11 @@
 namespace Callmeaf\Product\Http\Controllers\V1\Api;
 
 use Callmeaf\Base\Http\Controllers\V1\Api\ApiController;
+use Callmeaf\Media\Enums\MediaCollection;
+use Callmeaf\Media\Enums\MediaDisk;
 use Callmeaf\Product\Events\ProductDestroyed;
 use Callmeaf\Product\Events\ProductForceDestroyed;
+use Callmeaf\Product\Events\ProductImageUpdated;
 use Callmeaf\Product\Events\ProductIndexed;
 use Callmeaf\Product\Events\ProductRestored;
 use Callmeaf\Product\Events\ProductShowed;
@@ -14,6 +17,7 @@ use Callmeaf\Product\Events\ProductTrashed;
 use Callmeaf\Product\Events\ProductUpdated;
 use Callmeaf\Product\Http\Requests\V1\Api\ProductDestroyRequest;
 use Callmeaf\Product\Http\Requests\V1\Api\ProductForceDestroyRequest;
+use Callmeaf\Product\Http\Requests\V1\Api\ProductImageUpdateRequest;
 use Callmeaf\Product\Http\Requests\V1\Api\ProductIndexRequest;
 use Callmeaf\Product\Http\Requests\V1\Api\ProductRestoreRequest;
 use Callmeaf\Product\Http\Requests\V1\Api\ProductShowRequest;
@@ -197,13 +201,15 @@ class ProductController extends ApiController
     }
 
 
-    public function imageUpdate(VariationImageUpdateRequest $request,Variation $variation)
+    public function imageUpdate(ProductImageUpdateRequest $request,Product $product)
     {
         try {
-            $this->variationService->createMedia(file: $request->file('image'),collection: MediaCollection::IMAGE,disk: MediaDisk::VARIATIONS)->getModel(asResource: true,events: [
-                VariationImageUpdated::class,
+            $product = $this->productService->setModel($product)->createMedia(file: $request->file('image'),collection: MediaCollection::IMAGE,disk: MediaDisk::VARIATIONS)->getModel(asResource: true,attributes: config('callmeaf-product.resources.image_update.attributes'),relations: config('callmeaf-product.resources.image_update.relations'),events: [
+                ProductImageUpdated::class,
             ]);
-            return apiResponse([],__('callmeaf-base::v1.successful_updated_non_title'));
+            return apiResponse([
+                'product' => $product,
+            ],__('callmeaf-base::v1.successful_updated_non_title'));
         } catch (\Exception $exception) {
             report($exception);
             return apiResponse([],$exception);

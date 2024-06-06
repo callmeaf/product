@@ -208,11 +208,13 @@ class ProductCategoryController extends ApiController
             $productCategory = $this->productCategoryService
                 ->setModel($productCategory)
                 ->createMedia(file: $request->file('image'),collection: MediaCollection::IMAGE,disk: MediaDisk::PRODUCTS)
-            ->getModel(asResource: true,events: [
+            ->getModel(asResource: true,attributes: config('callmeaf-product-category.resources.image_update.attributes'),relations: config('callmeaf-product-category.resources.image_update.relations'),events: [
                 ProductCategoryImageUpdated::class,
             ]);
 
-             return apiResponse([],__('callmeaf-base::v1.successful_updated_non_title'));
+             return apiResponse([
+                 'product_category' => $productCategory,
+             ],__('callmeaf-base::v1.successful_updated_non_title'));
         } catch (\Exception $exception) {
             report($exception);
             return apiResponse([],$exception);

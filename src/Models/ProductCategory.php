@@ -5,6 +5,7 @@ namespace Callmeaf\Product\Models;
 use Callmeaf\Base\Contracts\HasEnum;
 use Callmeaf\Base\Contracts\HasResponseTitles;
 use Callmeaf\Base\Traits\HasDate;
+use Callmeaf\Base\Traits\HasMediaMethod;
 use Callmeaf\Base\Traits\HasParent;
 use Callmeaf\Base\Traits\HasStatus;
 use Callmeaf\Base\Traits\HasType;
@@ -19,7 +20,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 
 class ProductCategory extends Model implements HasResponseTitles,HasEnum,HasMedia
 {
-    use HasParent,HasDate,HasStatus,HasType,SoftDeletes,Localeable,InteractsWithMedia;
+    use HasParent,HasDate,HasStatus,HasType,SoftDeletes,Localeable,InteractsWithMedia,HasMediaMethod;
     protected $fillable = [
         'status',
         'type',

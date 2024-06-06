@@ -6,6 +6,7 @@ use Callmeaf\Base\Contracts\HasEnum;
 use Callmeaf\Base\Contracts\HasResponseTitles;
 use Callmeaf\Base\Traits\HasAuthor;
 use Callmeaf\Base\Traits\HasDate;
+use Callmeaf\Base\Traits\HasMediaMethod;
 use Callmeaf\Base\Traits\HasStatus;
 use Callmeaf\Base\Traits\HasType;
 use Callmeaf\Base\Traits\Localeable;
@@ -20,7 +21,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 
 class Product extends Model implements HasResponseTitles,HasEnum,HasMedia
 {
-    use HasDate,HasStatus,HasType,SoftDeletes,Publishable,Localeable,HasAuthor,InteractsWithMedia;
+    use HasDate,HasStatus,HasType,SoftDeletes,Publishable,Localeable,HasAuthor,InteractsWithMedia,HasMediaMethod;
     protected $fillable = [
         'author_id',
         'status',
