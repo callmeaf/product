@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
-use Illuminate\Support\Facades\Log;
 
 class ProductService extends BaseService implements ProductServiceInterface
 {
