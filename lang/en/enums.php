@@ -21,6 +21,7 @@ return [
     ],
     ProductType::class => [
         ProductType::DEFAULT->name => 'Default',
+        ProductCategoryType::PACKAGE->name => 'Package',
     ],
     PackageType::class => [
         PackageType::USER_ACCOUNT->name => 'User Account',

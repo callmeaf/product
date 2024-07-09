@@ -4,6 +4,7 @@ namespace Callmeaf\Product\Http\Resources\V1\Api;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Log;
 
 class ProductResource extends JsonResource
 {
@@ -40,10 +41,11 @@ class ProductResource extends JsonResource
             'updated_at_text' => fn() => $this->updatedAtText,
             'deleted_at' => fn() => $this->deleted_at,
             'deleted_at_text' => fn() => $this->deletedAtText,
-            'image' => fn() => new (config('callmeaf-media.model_resource'))($this->image,only: $this->only['!image'] ?? []),
+            'image' => fn() => $this->image ? new (config('callmeaf-media.model_resource'))($this->image,only: $this->only['!image'] ?? []) : null,
             'cat_ids' => fn() => $this->cats()->pluck('id'),
-            'cats' => fn() => new (config('callmeaf-product-category.model_resource_collection'))($this->cats,only: $this->only['!cats'] ?? []),
-            'author' => fn() => new (config('callmeaf-user.model_resource'))($this->author,only: $this->only['!author'] ?? [])
+            'cats' => fn() => $this->cats->count() ? new (config('callmeaf-product-category.model_resource_collection'))($this->cats,only: $this->only['!cats'] ?? []) : null,
+            'author' => fn() => $this->author ? new (config('callmeaf-user.model_resource'))($this->author,only: $this->only['!author'] ?? []) : null,
+            'variations' => fn() => $this->variations->count() ? new (config('callmeaf-variation.model_resource_collection'))($this->variations,only: $this->only['!variations'] ?? []) : null,
         ],only: $this->only);
     }
 }

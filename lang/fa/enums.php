@@ -21,6 +21,7 @@ return [
     ],
     ProductType::class => [
         ProductCategoryType::DEFAULT->name => 'پیش فرض',
+        ProductCategoryType::PACKAGE->name => 'پکیج',
     ],
     PackageType::class => [
         PackageType::USER_ACCOUNT->name => 'حساب کاربری',

@@ -15,6 +15,7 @@ use Callmeaf\Product\Enums\ProductStatus;
 use Callmeaf\Product\Enums\ProductType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -42,6 +43,11 @@ class Product extends Model implements HasResponseTitles,HasEnum,HasMedia
     public function cats(): BelongsToMany
     {
         return $this->belongsToMany(config('callmeaf-product-category.model'),'product_category','product_id','product_category_id');
+    }
+
+    public function variations(): HasMany
+    {
+        return $this->hasMany(config('callmeaf-variation.model'));
     }
 
     public function responseTitles(string $key,string $default = ''): string

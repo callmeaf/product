@@ -37,9 +37,9 @@ class ProductCategoryResource extends JsonResource
             'updated_at_text' => fn() => $this->updatedAtText,
             'deleted_at' => fn() => $this->deleted_at,
             'deleted_at_text' => fn() => $this->deletedAtText,
-            'image' => fn() => new (config('callmeaf-media.model_resource'))($this->image,only: $this->only['!image'] ?? []),
-            'parent' => fn() => new (config('callmeaf-product-category.model_resource'))($this->parent,only: $this->only['!parent'] ?? []),
-            'children' => fn() => new (config('callmeaf-product-category.model_resource_collection'))($this->children,only: $this->only['!parent'] ?? []),
+            'image' => fn() => $this->image ? new (config('callmeaf-media.model_resource'))($this->image,only: $this->only['!image'] ?? []) : null,
+            'parent' => fn() => $this->parent ? new (config('callmeaf-product-category.model_resource'))($this->parent,only: $this->only['!parent'] ?? []) : null,
+            'children' => fn() => $this->children->count() ? ew (config('callmeaf-product-category.model_resource_collection'))($this->children,only: $this->only['!parent'] ?? []) : null,
         ],only: $this->only);
     }
 }
