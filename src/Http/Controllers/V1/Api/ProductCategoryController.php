@@ -27,25 +27,29 @@ use Callmeaf\Product\Http\Requests\V1\Api\ProductCategoryTrashedIndexRequest;
 use Callmeaf\Product\Http\Requests\V1\Api\ProductCategoryUpdateRequest;
 use Callmeaf\Product\Models\ProductCategory;
 use Callmeaf\Product\Services\V1\ProductCategoryService;
+use Callmeaf\Product\Utilities\V1\ProductCategory\Api\ProductCategoryResources;
 use Illuminate\Support\Facades\Log;
 
 class ProductCategoryController extends ApiController
 {
     protected ProductCategoryService $productCategoryService;
+    protected ProductCategoryResources $productCategoryResources;
     public function __construct()
     {
         app(config('callmeaf-product-category.middlewares.product_category'))($this);
         $this->productCategoryService = app(config('callmeaf-product-category.service'));
+        $this->productCategoryResources = app(config('callmeaf-product-category.resources.product_category'));
     }
 
     public function index(ProductCategoryIndexRequest $request)
     {
         try {
+            $resources = $this->productCategoryResources->index();
             $productCategories = $this->productCategoryService->all(
-                relations: config('callmeaf-product-category.resources.index.relations'),
-                columns: config('callmeaf-product-category.resources.index.columns'),
+                relations: $resources->relations(),
+                columns: $resources->columns(),
                 filters: $request->validated(),
-            )->getCollection(asResourceCollection: true,asResponseData: true,attributes: config('callmeaf-product-category.resources.index.attributes'),events: [
+            )->getCollection(asResourceCollection: true,asResponseData: true,attributes: $resources->attributes(),events: [
                 ProductCategoryIndexed::class,
             ]);
             return apiResponse([
@@ -60,9 +64,10 @@ class ProductCategoryController extends ApiController
     public function store(ProductCategoryStoreRequest $request)
     {
         try {
+            $resources = $this->productCategoryResources->store();
             $productCategory = $this->productCategoryService->create(data: $request->validated(),events: [
                 ProductCategoryStored::class
-            ])->getModel(asResource: true,attributes: config('callmeaf-product-category.resources.store.attributes'),relations: config('callmeaf-product-category.resources.store.relations'));
+            ])->getModel(asResource: true,attributes: $resources->attributes(),relations: $resources->relations());
             return apiResponse([
                 'product_category' => $productCategory,
             ],__('callmeaf-base::v1.successful_created', [
@@ -77,11 +82,12 @@ class ProductCategoryController extends ApiController
     public function show(ProductCategoryShowRequest $request,ProductCategory $productCategory)
     {
         try {
+            $resources = $this->productCategoryResources->show();
             $productCategory = $this->productCategoryService->setModel($productCategory)
                 ->getModel(
                     asResource: true,
-                    attributes: config('callmeaf-product-category.resources.show.attributes'),
-                    relations: config('callmeaf-product-category.resources.show.relations'),
+                    attributes: $resources->attributes(),
+                    relations: $resources->relations(),
                     events: [
                         ProductCategoryShowed::class,
                     ],
@@ -98,9 +104,10 @@ class ProductCategoryController extends ApiController
     public function update(ProductCategoryUpdateRequest $request,ProductCategory $productCategory)
     {
         try {
+            $resources = $this->productCategoryResources->update();
             $productCategory = $this->productCategoryService->setModel($productCategory)->update(data: $request->validated(),events: [
                 ProductCategoryUpdated::class,
-            ])->getModel(asResource: true,attributes: config('callmeaf-product-category.resources.update.attributes'),relations: config('callmeaf-product-category.resources.update.relations'));
+            ])->getModel(asResource: true,attributes: $resources->attributes(),relations: $resources->relations());
             return apiResponse([
                 'product_category' => $productCategory,
             ],__('callmeaf-base::v1.successful_updated', [
@@ -115,9 +122,10 @@ class ProductCategoryController extends ApiController
     public function statusUpdate(ProductCategoryStatusUpdateRequest $request,ProductCategory $productCategory)
     {
         try {
+            $resources = $this->productCategoryResources->statusUpdate();
             $productCategory = $this->productCategoryService->setModel($productCategory)->update([
                 'status' => $request->get('status'),
-            ])->getModel(asResource: true,attributes: config('callmeaf-product-category.resources.status_update.attributes'),relations: config('callmeaf-product-category.resources.status_update.relations'),events: [
+            ])->getModel(asResource: true,attributes: $resources->attributes(),relations: $resources->relations(),events: [
                 ProductCategoryStatusUpdated::class,
             ]);
             return apiResponse([
@@ -134,9 +142,10 @@ class ProductCategoryController extends ApiController
     public function destroy(ProductCategoryDestroyRequest $request,ProductCategory $productCategory)
     {
         try {
+            $resources = $this->productCategoryResources->destroy();
             $productCategory = $this->productCategoryService->setModel($productCategory)->delete(events: [
                 ProductCategoryDestroyed::class,
-            ])->getModel(asResource: true,attributes: config('callmeaf-product-category.resources.destroy.attributes'),relations: config('callmeaf-product-category.resources.destroy.relations'));
+            ])->getModel(asResource: true,attributes: $resources->attributes(),relations: $resources->relations());
             return apiResponse([
                 'product_category' => $productCategory,
             ],__('callmeaf-base::v1.successful_deleted', [
@@ -152,9 +161,10 @@ class ProductCategoryController extends ApiController
     public function restore(ProductCategoryRestoreRequest $request,string|int $id)
     {
         try {
-            $productCategory = $this->productCategoryService->restore(id: $id,idColumn: config('callmeaf-product-category.resources.restore.id_column'),events: [
+            $resources = $this->productCategoryResources->restore();
+            $productCategory = $this->productCategoryService->restore(id: $id,idColumn: $resources->idColumn(),events: [
                 ProductCategoryRestored::class
-            ])->getModel(asResource: true,attributes: config('callmeaf-product-category.resources.restore.attributes'),relations: config('callmeaf-product-category.resources.restore.relations'));
+            ])->getModel(asResource: true,attributes: $resources->attributes(),relations: $resources->relations());
             return apiResponse([
                 'product_category' => $productCategory,
             ],__('callmeaf-base::v1.successful_restored',[
@@ -169,11 +179,12 @@ class ProductCategoryController extends ApiController
     public function trashed(ProductCategoryTrashedIndexRequest $request)
     {
         try {
+            $resources = $this->productCategoryResources->trashed();
             $productCategories = $this->productCategoryService->onlyTrashed()->all(
-                relations: config('callmeaf-product-category.resources.trashed.relations'),
-                columns: config('callmeaf-product-category.resources.trashed.columns'),
+                relations: $resources->relations(),
+                columns: $resources->columns(),
                 filters: $request->validated(),
-            )->getCollection(asResourceCollection: true,asResponseData: true,attributes: config('callmeaf-product-category.resources.trashed.attributes'),events: [
+            )->getCollection(asResourceCollection: true,asResponseData: true,attributes: $resources->attributes(),events: [
                 ProductCategoryTrashed::class,
             ]);
             return apiResponse([
@@ -188,9 +199,10 @@ class ProductCategoryController extends ApiController
     public function forceDestroy(ProductCategoryForceDestroyRequest $request,string|int $id)
     {
         try {
-            $productCategory = $this->productCategoryService->forceDelete(id: $id,idColumn: config('callmeaf-product-category.resources.force_destroy.id_column'),columns: config('callmeaf-product-category.resources.force_destroy.columns'),events: [
+            $resources = $this->productCategoryResources->forceDestroy();
+            $productCategory = $this->productCategoryService->forceDelete(id: $id,idColumn: $resources->idColumn(),columns: $resources->columns(),events: [
                 ProductCategoryForceDestroyed::class,
-            ])->getModel(asResource: true,attributes: config('callmeaf-product-category.resources.force_destroy.attributes'),relations: config('callmeaf-product-category.resources.force_destroy.relations'));
+            ])->getModel(asResource: true,attributes: $resources->attributes(),relations: $resources->relations());
             return apiResponse([
                 'product_category' => $productCategory,
             ],__('callmeaf-base::v1.successful_force_destroyed',[
@@ -205,10 +217,11 @@ class ProductCategoryController extends ApiController
     public function imageUpdate(ProductCategoryImageUpdateRequest $request,ProductCategory $productCategory)
     {
         try {
+            $resources = $this->productCategoryResources->imageUpdate();
             $productCategory = $this->productCategoryService
                 ->setModel($productCategory)
                 ->createMedia(file: $request->file('image'),collection: MediaCollection::IMAGE,disk: MediaDisk::PRODUCTS)
-            ->getModel(asResource: true,attributes: config('callmeaf-product-category.resources.image_update.attributes'),relations: config('callmeaf-product-category.resources.image_update.relations'),events: [
+            ->getModel(asResource: true,attributes: $resources->attributes(),relations: $resources->relations(),events: [
                 ProductCategoryImageUpdated::class,
             ]);
 
