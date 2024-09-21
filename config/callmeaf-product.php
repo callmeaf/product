@@ -30,19 +30,19 @@ return [
         ],
     ],
     'validations' => [
-        'product' => \Callmeaf\Product\Utilities\V1\Product\Api\ProductFormRequestValidator::class,
+        'product' => \Callmeaf\Product\Utilities\V1\Api\Product\ProductFormRequestValidator::class,
     ],
     'resources' => [
-        'product' => \Callmeaf\Product\Utilities\V1\Product\Api\ProductResources::class,
+        'product' => \Callmeaf\Product\Utilities\V1\Api\Product\ProductResources::class,
     ],
     'controllers' => [
         'products' => \Callmeaf\Product\Http\Controllers\V1\Api\ProductController::class,
     ],
     'form_request_authorizers' => [
-        'product' => \Callmeaf\Product\Utilities\V1\Product\Api\ProductFormRequestAuthorizer::class,
+        'product' => \Callmeaf\Product\Utilities\V1\Api\Product\ProductFormRequestAuthorizer::class,
     ],
     'middlewares' => [
-        'product' => \Callmeaf\Product\Utilities\V1\Product\Api\ProductControllerMiddleware::class,
+        'product' => \Callmeaf\Product\Utilities\V1\Api\Product\ProductControllerMiddleware::class,
     ],
-    'searcher' => \Callmeaf\Product\Utilities\V1\Product\Api\ProductSearcher::class,
+    'searcher' => \Callmeaf\Product\Utilities\V1\Api\Product\ProductSearcher::class,
 ];

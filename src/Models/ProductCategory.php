@@ -4,6 +4,7 @@ namespace Callmeaf\Product\Models;
 
 use Callmeaf\Base\Contracts\HasEnum;
 use Callmeaf\Base\Contracts\HasResponseTitles;
+use Callmeaf\Base\Enums\ResponseTitle;
 use Callmeaf\Base\Traits\HasDate;
 use Callmeaf\Base\Traits\HasMediaMethod;
 use Callmeaf\Base\Traits\HasParent;
@@ -41,7 +42,7 @@ class ProductCategory extends Model implements HasResponseTitles,HasEnum,HasMedi
         return $this->belongsToMany(config('callmeaf-product.model'),'product_category','product_category_id','product_id');
     }
 
-    public function responseTitles(string $key,string $default = ''): string
+    public function responseTitles(ResponseTitle|string $key,string $default = ''): string
     {
         return [
             'store' => $this->title ?? $default,
@@ -50,7 +51,7 @@ class ProductCategory extends Model implements HasResponseTitles,HasEnum,HasMedi
             'destroy' => $this->title ?? $default,
             'restore' => $this->title ?? $default,
             'force_destroy' => $this->title ?? $default,
-        ][$key];
+        ][$key instanceof ResponseTitle ? $key->value : $key];
     }
 
     public static function enumsLang(): array

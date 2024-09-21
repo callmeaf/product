@@ -30,21 +30,21 @@ return [
         ],
     ],
     'validations' => [
-        'product_category' => \Callmeaf\Product\Utilities\V1\ProductCategory\Api\ProductCategoryFormRequestValidator::class,
+        'product_category' => \Callmeaf\Product\Utilities\V1\Api\ProductCategory\ProductCategoryFormRequestValidator::class,
     ],
     'resources' => [
-        'product_category' => \Callmeaf\Product\Utilities\V1\ProductCategory\Api\ProductCategoryResources::class,
+        'product_category' => \Callmeaf\Product\Utilities\V1\Api\ProductCategory\ProductCategoryResources::class,
     ],
     'controllers' => [
         'product_categories' => \Callmeaf\Product\Http\Controllers\V1\Api\ProductCategoryController::class,
     ],
     'form_request_authorizers' => [
-        'product_category' => \Callmeaf\Product\Utilities\V1\ProductCategory\Api\ProductCategoryFormRequestAuthorizer::class,
+        'product_category' => \Callmeaf\Product\Utilities\V1\Api\ProductCategory\ProductCategoryFormRequestAuthorizer::class,
     ],
     'middlewares' => [
-        'product_category' => \Callmeaf\Product\Utilities\V1\ProductCategory\Api\ProductCategoryControllerMiddleware::class,
+        'product_category' => \Callmeaf\Product\Utilities\V1\Api\ProductCategory\ProductCategoryControllerMiddleware::class,
     ],
-    'searcher' => \Callmeaf\Product\Utilities\V1\ProductCategory\Api\ProductCategorySearcher::class,
+    'searcher' => \Callmeaf\Product\Utilities\V1\Api\ProductCategory\ProductCategorySearcher::class,
     'seeders' => [
         \Callmeaf\Product\Seeders\ProductCategorySeeder::class,
     ],

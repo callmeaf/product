@@ -2,6 +2,7 @@
 
 namespace Callmeaf\Product\Http\Controllers\V1\Api;
 
+use Callmeaf\Base\Enums\ResponseTitle;
 use Callmeaf\Base\Http\Controllers\V1\Api\ApiController;
 use Callmeaf\Media\Enums\MediaCollection;
 use Callmeaf\Media\Enums\MediaDisk;
@@ -27,8 +28,7 @@ use Callmeaf\Product\Http\Requests\V1\Api\ProductCategoryTrashedIndexRequest;
 use Callmeaf\Product\Http\Requests\V1\Api\ProductCategoryUpdateRequest;
 use Callmeaf\Product\Models\ProductCategory;
 use Callmeaf\Product\Services\V1\ProductCategoryService;
-use Callmeaf\Product\Utilities\V1\ProductCategory\Api\ProductCategoryResources;
-use Illuminate\Support\Facades\Log;
+use Callmeaf\Product\Utilities\V1\Api\ProductCategory\ProductCategoryResources;
 
 class ProductCategoryController extends ApiController
 {
@@ -71,7 +71,7 @@ class ProductCategoryController extends ApiController
             return apiResponse([
                 'product_category' => $productCategory,
             ],__('callmeaf-base::v1.successful_created', [
-                'title' => $productCategory->responseTitles('store'),
+                'title' => $productCategory->responseTitles(ResponseTitle::STORE),
             ]));
         } catch (\Exception $exception) {
             report($exception);
@@ -111,7 +111,7 @@ class ProductCategoryController extends ApiController
             return apiResponse([
                 'product_category' => $productCategory,
             ],__('callmeaf-base::v1.successful_updated', [
-                'title' =>  $productCategory->responseTitles('update')
+                'title' =>  $productCategory->responseTitles(ResponseTitle::UPDATE)
             ]));
         } catch (\Exception $exception) {
             report($exception);
@@ -131,7 +131,7 @@ class ProductCategoryController extends ApiController
             return apiResponse([
                 'product_category' => $productCategory,
             ],__('callmeaf-base::v1.successful_updated', [
-                'title' =>  $productCategory->responseTitles('status_update')
+                'title' =>  $productCategory->responseTitles(ResponseTitle::STATUS_UPDATE)
             ]));
         } catch (\Exception $exception) {
             report($exception);
@@ -149,7 +149,7 @@ class ProductCategoryController extends ApiController
             return apiResponse([
                 'product_category' => $productCategory,
             ],__('callmeaf-base::v1.successful_deleted', [
-                'title' =>  $productCategory->responseTitles('destroy')
+                'title' =>  $productCategory->responseTitles(ResponseTitle::DESTROY)
             ]));
         } catch (\Exception $exception) {
             report($exception);
@@ -168,7 +168,7 @@ class ProductCategoryController extends ApiController
             return apiResponse([
                 'product_category' => $productCategory,
             ],__('callmeaf-base::v1.successful_restored',[
-                'title' =>  $productCategory->responseTitles('restore')
+                'title' =>  $productCategory->responseTitles(ResponseTitle::RESTORE)
             ]));
         } catch (\Exception $exception) {
             report($exception);
@@ -206,7 +206,7 @@ class ProductCategoryController extends ApiController
             return apiResponse([
                 'product_category' => $productCategory,
             ],__('callmeaf-base::v1.successful_force_destroyed',[
-                'title' =>  $productCategory->responseTitles('force_destroy')
+                'title' =>  $productCategory->responseTitles(ResponseTitle::FORCE_DESTROY)
             ]));
         } catch (\Exception $exception) {
             report($exception);
