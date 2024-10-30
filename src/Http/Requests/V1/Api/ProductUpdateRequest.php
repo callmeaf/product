@@ -37,7 +37,7 @@ class ProductUpdateRequest extends FormRequest
             'published_at' => ['date_format:' . DateTimeFormat::DATE_TIME_WITH_DASH_AND_TIME_WITH_DOUBLE_POINT->value],
             'expired_at' => ['date_format:' . DateTimeFormat::DATE_TIME_WITH_DASH_AND_TIME_WITH_DOUBLE_POINT->value],
             'cat_ids' => ['array'],
-            'cat_ids.*' => [Rule::exists(config('callmeaf-product-category.model'))],
+            'cat_ids.*' => [Rule::exists(config('callmeaf-product-category.model'),'id')],
         ],filters: app(config("callmeaf-product.validations.product"))->update());
     }
 
