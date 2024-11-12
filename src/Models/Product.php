@@ -12,6 +12,7 @@ use Callmeaf\Base\Traits\HasStatus;
 use Callmeaf\Base\Traits\HasType;
 use Callmeaf\Base\Traits\Localeable;
 use Callmeaf\Base\Traits\Publishable;
+use Callmeaf\Base\Traits\Sluggable;
 use Callmeaf\Product\Enums\ProductStatus;
 use Callmeaf\Product\Enums\ProductType;
 use Illuminate\Database\Eloquent\Model;
@@ -23,7 +24,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 
 class Product extends Model implements HasResponseTitles,HasEnum,HasMedia
 {
-    use HasDate,HasStatus,HasType,SoftDeletes,Publishable,Localeable,HasAuthor,InteractsWithMedia,HasMediaMethod;
+    use HasDate,HasStatus,HasType,SoftDeletes,Publishable,Localeable,HasAuthor,InteractsWithMedia,HasMediaMethod,Sluggable;
     protected $fillable = [
         'author_id',
         'status',
