@@ -30,9 +30,9 @@ class ProductCategoryStoreRequest extends FormRequest
             'status' => [new Enum(ProductCategoryStatus::class)],
             'type' => [new Enum(ProductCategoryType::class)],
             'title' => ['string','min:3','max:255'],
-            'slug' => ['string','min:3','max:255',Rule::unique(config('callmeaf-product-category.model'),'slug')],
             'summary' => ['string','min:3','max:255'],
             'content' => ['string','min:3','max:700'],
+            ...slugValidationRules(config('callmeaf-product-category.model')),
         ],filters: app(config("callmeaf-product-category.validations.product_category"))->store());
     }
 

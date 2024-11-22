@@ -31,13 +31,13 @@ class ProductUpdateRequest extends FormRequest
             'status' => [new Enum(ProductStatus::class)],
             'type' => [new Enum(ProductType::class)],
             'title' => ['string','min:3','max:255'],
-            'slug' => ['string','min:3','max:255',Rule::unique(config('callmeaf-product.model'),'slug')->ignore($productCategoryId)],
             'summary' => ['string','min:3','max:255'],
             'content' => ['string','min:3','max:700'],
             'published_at' => ['date_format:' . DateTimeFormat::DATE_TIME_WITH_DASH_AND_TIME_WITH_DOUBLE_POINT->value],
             'expired_at' => ['date_format:' . DateTimeFormat::DATE_TIME_WITH_DASH_AND_TIME_WITH_DOUBLE_POINT->value],
             'cat_ids' => ['array'],
             'cat_ids.*' => [Rule::exists(config('callmeaf-product-category.model'),'id')],
+            ...slugValidationRules(config('callmeaf-product.model'),ignore: $productCategoryId),
         ],filters: app(config("callmeaf-product.validations.product"))->update());
     }
 

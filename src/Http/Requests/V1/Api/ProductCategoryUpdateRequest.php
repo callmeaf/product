@@ -28,12 +28,13 @@ class ProductCategoryUpdateRequest extends FormRequest
     {
         $productCategoryId = $this->route('product_category')->id;
         return validationManager(rules: [
+            'parent_id' => [Rule::exists(config('callmeaf-product-category.model'),'id')],
             'status' => [new Enum(ProductCategoryStatus::class)],
             'type' => [new Enum(ProductCategoryType::class)],
             'title' => ['string','min:3','max:255'],
-            'slug' => ['string','min:3','max:255',Rule::unique(config('callmeaf-product-category.model'),'slug')->ignore($productCategoryId)],
             'summary' => ['string','min:3','max:255'],
             'content' => ['string','min:3','max:700'],
+            ...slugValidationRules(config('callmeaf-product-category.model'),ignore: $productCategoryId),
         ],filters: app(config("callmeaf-product-category.validations.product_category"))->update());
     }
 

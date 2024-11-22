@@ -5,6 +5,7 @@ namespace Callmeaf\Product\Models;
 use Callmeaf\Base\Contracts\HasEnum;
 use Callmeaf\Base\Contracts\HasResponseTitles;
 use Callmeaf\Base\Enums\ResponseTitle;
+use Callmeaf\Base\Traits\HasChildren;
 use Callmeaf\Base\Traits\HasDate;
 use Callmeaf\Base\Traits\HasMediaMethod;
 use Callmeaf\Base\Traits\HasParent;
@@ -21,7 +22,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 
 class ProductCategory extends Model implements HasResponseTitles,HasEnum,HasMedia
 {
-    use HasParent,HasDate,HasStatus,HasType,SoftDeletes,Localeable,InteractsWithMedia,HasMediaMethod;
+    use HasParent,HasChildren,HasDate,HasStatus,HasType,SoftDeletes,Localeable,InteractsWithMedia,HasMediaMethod;
     protected $fillable = [
         'status',
         'type',
@@ -40,6 +41,16 @@ class ProductCategory extends Model implements HasResponseTitles,HasEnum,HasMedi
     public function products(): BelongsToMany
     {
         return $this->belongsToMany(config('callmeaf-product.model'),'product_category','product_category_id','product_id');
+    }
+
+    public function parentModel(): string
+    {
+        return self::class;
+    }
+
+    public function childrenModel(): string
+    {
+        return self::class;
     }
 
     public function responseTitles(ResponseTitle|string $key,string $default = ''): string

@@ -19,6 +19,7 @@ class ProductCategoryFormRequestValidator extends FormRequestValidator
         return [
             'status' => true,
             'type' => true,
+            'parent_id' => false,
             'title' => true,
             'slug' => true,
             'summary' => false,
@@ -36,6 +37,7 @@ class ProductCategoryFormRequestValidator extends FormRequestValidator
         return [
             'status' => true,
             'type' => true,
+            'parent_id' => false,
             'title' => true,
             'slug' => true,
             'summary' => false,
