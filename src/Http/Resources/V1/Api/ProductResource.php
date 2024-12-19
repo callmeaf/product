@@ -22,6 +22,7 @@ class ProductResource extends JsonResource
         return toArrayResource(data: [
             'id' => fn() => $this->id,
             'author_id' => fn() => $this->author_id,
+            'province_id' => fn() => $this->province_id,
             'status' => fn() => $this->status,
             'status_text' => fn() => $this->statusText,
             'type' => fn() => $this->type,
@@ -44,6 +45,7 @@ class ProductResource extends JsonResource
             'cat_ids' => fn() => $this->cats()->pluck('id'),
             'cats' => fn() => $this->cats->count() ? new (config('callmeaf-product-category.model_resource_collection'))($this->cats,only: $this->only['!cats'] ?? []) : null,
             'author' => fn() => $this->author ? new (config('callmeaf-user.model_resource'))($this->author,only: $this->only['!author'] ?? []) : null,
+            'province' => fn() => $this->province ? new (config('callmeaf-province.model_resource'))($this->province,only: $this->only['!province'] ?? []) : null,
             'variations' => fn() => $this->variations->count() ? new (config('callmeaf-variation.model_resource_collection'))($this->variations,only: $this->only['!variations'] ?? []) : null,
         ],only: $this->only);
     }

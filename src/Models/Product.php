@@ -16,6 +16,7 @@ use Callmeaf\Base\Traits\Sluggable;
 use Callmeaf\Product\Enums\ProductStatus;
 use Callmeaf\Product\Enums\ProductType;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -25,8 +26,10 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 class Product extends Model implements HasResponseTitles,HasEnum,HasMedia
 {
     use HasDate,HasStatus,HasType,SoftDeletes,Publishable,Localeable,HasAuthor,InteractsWithMedia,HasMediaMethod,Sluggable;
+
     protected $fillable = [
         'author_id',
+        'province_id',
         'status',
         'type',
         'title',
@@ -50,6 +53,11 @@ class Product extends Model implements HasResponseTitles,HasEnum,HasMedia
     public function variations(): HasMany
     {
         return $this->hasMany(config('callmeaf-variation.model'));
+    }
+
+    public function province(): BelongsTo
+    {
+        return $this->belongsTo(config('callmeaf-province.model'));
     }
 
     public function responseTitles(ResponseTitle|string $key,string $default = ''): string

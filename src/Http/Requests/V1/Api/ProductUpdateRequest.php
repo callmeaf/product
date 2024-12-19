@@ -5,7 +5,9 @@ namespace Callmeaf\Product\Http\Requests\V1\Api;
 use Callmeaf\Base\Enums\DateTimeFormat;
 use Callmeaf\Product\Enums\ProductStatus;
 use Callmeaf\Product\Enums\ProductType;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Enum;
 
@@ -27,18 +29,25 @@ class ProductUpdateRequest extends FormRequest
     public function rules(): array
     {
         $productCategoryId = $this->route('product')->id;
-        return validationManager(rules: [
+        $rules = [
             'status' => [new Enum(ProductStatus::class)],
             'type' => [new Enum(ProductType::class)],
+            'province_id' => [Rule::exists(config('callmeaf-province.model'),'id')],
             'title' => ['string','min:3','max:255'],
             'summary' => ['string','min:3','max:255'],
             'content' => ['string','min:3','max:700'],
             'published_at' => ['date_format:' . DateTimeFormat::DATE_TIME_WITH_DASH_AND_TIME_WITH_DOUBLE_POINT->value],
             'expired_at' => ['date_format:' . DateTimeFormat::DATE_TIME_WITH_DASH_AND_TIME_WITH_DOUBLE_POINT->value],
             'cat_ids' => ['array'],
-            'cat_ids.*' => [Rule::exists(config('callmeaf-product-category.model'),'id')],
+            'cat_ids.*' => [Rule::exists(config('callmeaf-product-category.model'),'id')->where(localScope())],
             ...slugValidationRules(config('callmeaf-product.model'),ignore: $productCategoryId),
-        ],filters: app(config("callmeaf-product.validations.product"))->update());
+        ];
+
+        if($this->user()?->isSuperAdminOrAdmin()) {
+            $rules['author_id'] = [Rule::exists(config('callmeaf-user.model'),'id')];
+        }
+
+        return validationManager(rules: $rules,filters: app(config("callmeaf-product.validations.product"))->update());
     }
 
 }

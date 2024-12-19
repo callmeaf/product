@@ -26,18 +26,25 @@ class ProductStoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        return validationManager(rules: [
+        $rules = [
             'status' => [new Enum(ProductStatus::class)],
             'type' => [new Enum(ProductType::class)],
+            'province_id' => [Rule::exists(config('callmeaf-province.model'),'id')],
             'title' => ['string','min:3','max:255'],
             'summary' => ['string','min:3','max:255'],
             'content' => ['string','min:3','max:700'],
             'published_at' => ['date_format:' . DateTimeFormat::DATE_TIME_WITH_DASH_AND_TIME_WITH_DOUBLE_POINT->value],
             'expired_at' => ['date_format:' . DateTimeFormat::DATE_TIME_WITH_DASH_AND_TIME_WITH_DOUBLE_POINT->value],
             'cat_ids' => ['array'],
-            'cat_ids.*' => [Rule::exists(config('callmeaf-product-category.model'),'id')],
+            'cat_ids.*' => [Rule::exists(config('callmeaf-product-category.model'),'id')->where(localScope())],
             ...slugValidationRules(config('callmeaf-product.model')),
-        ],filters: app(config("callmeaf-product.validations.product"))->store());
+        ];
+
+        if($this->user()?->isSuperAdminOrAdmin()) {
+            $rules['author_id'] = [Rule::exists(config('callmeaf-user.model'),'id')];
+        }
+
+        return validationManager(rules: $rules,filters: app(config("callmeaf-product.validations.product"))->store());
     }
 
 }

@@ -62,10 +62,15 @@ class ProductResources extends Resources
     public function show(): self
     {
         $this->data = [
-            'relations' => [],
+            'relations' => [
+                'author',
+                'province',
+                'variations',
+            ],
             'attributes' => [
                 'id',
                 'author_id',
+                'province_id',
                 'type',
                 'type_text',
                 'status',
@@ -83,6 +88,11 @@ class ProductResources extends Resources
                 '!author' => [
                     'id',
                     'mobile'
+                ],
+                'province',
+                '!province' => [
+                    'id',
+                    'name',
                 ],
                 'variations',
                 '!variations' => [

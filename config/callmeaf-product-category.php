@@ -10,7 +10,13 @@ return [
         'type' => \Callmeaf\Product\Enums\ProductCategoryType::DEFAULT,
     ],
     'events' => [
+        \Callmeaf\Product\Events\ProductCategoryIndexed::class => [
+            // listeners
+        ],
         \Callmeaf\Product\Events\ProductCategoryStored::class => [
+            // listeners
+        ],
+        \Callmeaf\Product\Events\ProductCategoryShowed::class => [
             // listeners
         ],
         \Callmeaf\Product\Events\ProductCategoryUpdated::class => [
@@ -26,6 +32,12 @@ return [
             // listeners
         ],
         \Callmeaf\Product\Events\ProductCategoryForceDestroyed::class => [
+            // listeners
+        ],
+        \Callmeaf\Product\Events\ProductCategoryTrashed::class => [
+            // listeners
+        ],
+        \Callmeaf\Product\Events\ProductCategoryImageUpdated::class => [
             // listeners
         ],
     ],

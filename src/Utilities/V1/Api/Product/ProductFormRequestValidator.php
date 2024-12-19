@@ -16,9 +16,10 @@ class ProductFormRequestValidator extends FormRequestValidator
 
     public function store(): array
     {
-        return [
+        $rules = [
             'status' => true,
             'type' => true,
+            'province_id' => false,
             'title' => true,
             'slug' => true,
             'summary' => false,
@@ -26,7 +27,13 @@ class ProductFormRequestValidator extends FormRequestValidator
             'published_at' => false,
             'expired_at' => false,
             'cat_ids' => false,
+            'cat_ids.*' => true,
         ];
+
+        if($this->request->user()?->isSuperAdminOrAdmin()) {
+            $rules['author_id'] = true;
+        }
+        return $rules;
     }
 
     public function show(): array
@@ -36,9 +43,10 @@ class ProductFormRequestValidator extends FormRequestValidator
 
     public function update(): array
     {
-        return [
+        $rules = [
             'status' => true,
             'type' => true,
+            'province_id' => false,
             'title' => true,
             'slug' => true,
             'summary' => false,
@@ -46,7 +54,13 @@ class ProductFormRequestValidator extends FormRequestValidator
             'published_at' => false,
             'expired_at' => false,
             'cat_ids' => false,
+            'cat_ids.*' => true,
         ];
+
+        if($this->request->user()?->isSuperAdminOrAdmin()) {
+            $rules['author_id'] = true;
+        }
+        return $rules;
     }
 
     public function statusUpdate(): array
