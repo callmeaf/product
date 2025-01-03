@@ -36,9 +36,13 @@ class ProductController extends ApiController
     protected ProductResources $productResources;
     public function __construct()
     {
-        app(config('callmeaf-product.middlewares.product'))($this);
         $this->productService = app(config('callmeaf-product.service'));
         $this->productResources = app(config('callmeaf-product.resources.product'));
+    }
+
+    public static function middleware(): array
+    {
+        return app(config('callmeaf-product.middlewares.product'))();
     }
 
     public function index(ProductIndexRequest $request)

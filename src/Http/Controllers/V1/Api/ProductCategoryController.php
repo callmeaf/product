@@ -36,9 +36,13 @@ class ProductCategoryController extends ApiController
     protected ProductCategoryResources $productCategoryResources;
     public function __construct()
     {
-        app(config('callmeaf-product-category.middlewares.product_category'))($this);
         $this->productCategoryService = app(config('callmeaf-product-category.service'));
         $this->productCategoryResources = app(config('callmeaf-product-category.resources.product_category'));
+    }
+
+    public static function middleware(): array
+    {
+        return  app(config('callmeaf-product-category.middlewares.product_category'))();
     }
 
     public function index(ProductCategoryIndexRequest $request)
