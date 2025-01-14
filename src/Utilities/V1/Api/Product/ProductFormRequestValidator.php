@@ -30,7 +30,7 @@ class ProductFormRequestValidator extends FormRequestValidator
             'cat_ids.*' => true,
         ];
 
-        if($this->request->user()?->isSuperAdminOrAdmin()) {
+        if(authUser(request: $this->request)?->isSuperAdminOrAdmin()) {
             $rules['author_id'] = true;
         }
         return $rules;
@@ -57,7 +57,7 @@ class ProductFormRequestValidator extends FormRequestValidator
             'cat_ids.*' => true,
         ];
 
-        if($this->request->user()?->isSuperAdminOrAdmin()) {
+        if(authUser(request: $this->request)?->isSuperAdminOrAdmin()) {
             $rules['author_id'] = true;
         }
         return $rules;

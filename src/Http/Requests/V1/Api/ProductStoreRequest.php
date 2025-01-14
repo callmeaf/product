@@ -40,7 +40,7 @@ class ProductStoreRequest extends FormRequest
             ...slugValidationRules(config('callmeaf-product.model')),
         ];
 
-        if($this->user()?->isSuperAdminOrAdmin()) {
+        if(authUser(request: $this)?->isSuperAdminOrAdmin()) {
             $rules['author_id'] = [Rule::exists(config('callmeaf-user.model'),'id')];
         }
 
