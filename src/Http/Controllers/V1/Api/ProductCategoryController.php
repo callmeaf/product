@@ -224,7 +224,7 @@ class ProductCategoryController extends ApiController
             $resources = $this->productCategoryResources->imageUpdate();
             $productCategory = $this->productCategoryService
                 ->setModel($productCategory)
-                ->createMedia(file: $request->file('image'),collection: MediaCollection::IMAGE,disk: MediaDisk::PRODUCTS)
+                ->createMedia(file: $request->file('image'),collection: MediaCollection::IMAGE,disk: MediaDisk::PRODUCT_CATEGORIES)
             ->getModel(asResource: true,attributes: $resources->attributes(),relations: $resources->relations(),events: [
                 ProductCategoryImageUpdated::class,
             ]);

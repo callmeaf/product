@@ -9,7 +9,9 @@ class ProductCategoryResources extends Resources
     public function index(): self
     {
         $this->data = [
-            'relations' => [],
+            'relations' => [
+                'parent'
+            ],
             'columns' => [
                 'id',
                 'parent_id',
@@ -31,6 +33,11 @@ class ProductCategoryResources extends Resources
                 'slug',
                 'created_at_text',
                 'updated_at_text',
+                'parent',
+                '!parent' => [
+                    'id',
+                    'title'
+                ],
             ],
         ];
         return $this;
@@ -73,6 +80,14 @@ class ProductCategoryResources extends Resources
                 'content',
                 'created_at_text',
                 'updated_at_text',
+                'image',
+                '!image' => [
+                    'id',
+                    'file_name',
+                    'collection_name',
+                    'size',
+                    'url',
+                ],
             ],
         ];
         return $this;

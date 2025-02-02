@@ -5,6 +5,7 @@ namespace Callmeaf\Product\Utilities\V1\Api\ProductCategory;
 use Callmeaf\Base\Utilities\V1\FormRequestAuthorizer;
 use Callmeaf\Permission\Enums\PermissionName;
 use Callmeaf\Product\Enums\ProductCategoryType;
+use Callmeaf\Product\Exceptions\ProductCategoryDefaultTypesCanNotDeleteException;
 
 class ProductCategoryFormRequestAuthorizer extends FormRequestAuthorizer
 {
@@ -45,7 +46,10 @@ class ProductCategoryFormRequestAuthorizer extends FormRequestAuthorizer
 
     public function destroy(): bool
     {
-        return userCan(PermissionName::PRODUCT_CATEGORY_DESTROY) && !$this->request->route('product_category')->isType(ProductCategoryType::DEFAULT->value);
+        if($this->request->route('product_category')->isType(ProductCategoryType::DEFAULT->value)) {
+            throw new ProductCategoryDefaultTypesCanNotDeleteException();
+        }
+        return userCan(PermissionName::PRODUCT_CATEGORY_DESTROY);
     }
 
     public function trashed(): bool

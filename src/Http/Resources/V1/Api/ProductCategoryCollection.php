@@ -39,7 +39,7 @@ class ProductCategoryCollection extends ResourceCollection
                 'deleted_at' => fn() => $productCategory->deleted_at,
                 'deleted_at_text' => fn() => $productCategory->deletedAtText,
                 'image' => fn() => $productCategory->image ? new (config('callmeaf-media.model_resource'))($this->image,only: $this->only['!image'] ?? []) : null,
-                'parent' => fn() => $productCategory->parent ? new (config('callmeaf-product-category.model_resource'))($this->parent,only: $this->only['!parent'] ?? []) : null,
+                'parent' => fn() => $productCategory->parent ? new (config('callmeaf-product-category.model_resource'))($productCategory->parent,only: $this->only['!parent'] ?? []) : null,
                 'children' => fn() => $productCategory->children->count() ? new (config('callmeaf-product-category.model_resource_collection'))($this->children,only: $this->only['!parent'] ?? []) : null,
             ],only: $this->only)),
         ];
