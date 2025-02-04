@@ -26,8 +26,8 @@ class ProductFormRequestValidator extends FormRequestValidator
             'content' => false,
             'published_at' => false,
             'expired_at' => false,
-            'cat_ids' => false,
-            'cat_ids.*' => true,
+            'cats_ids' => false,
+            'cats_ids.*' => true,
         ];
 
         if(authUser(request: $this->request)?->isSuperAdminOrAdmin()) {
@@ -53,8 +53,8 @@ class ProductFormRequestValidator extends FormRequestValidator
             'content' => false,
             'published_at' => false,
             'expired_at' => false,
-            'cat_ids' => false,
-            'cat_ids.*' => true,
+            'cats_ids' => false,
+            'cats_ids.*' => true,
         ];
 
         if(authUser(request: $this->request)?->isSuperAdminOrAdmin()) {

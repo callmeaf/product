@@ -71,7 +71,7 @@ class ProductController extends ApiController
             $resources = $this->productResources->store();
             $product = $this->productService->create(data: $request->validated(),events: [
                 ProductStored::class
-            ])->syncCats(catIds: $request->get('cat_ids'))->getModel(asResource: true,attributes: $resources->attributes(),relations: $resources->relations());
+            ])->syncCats(catIds: $request->get('cats_ids'))->getModel(asResource: true,attributes: $resources->attributes(),relations: $resources->relations());
             return apiResponse([
                 'product' => $product,
             ],__('callmeaf-base::v1.successful_created', [
@@ -110,7 +110,7 @@ class ProductController extends ApiController
             $resources = $this->productResources->update();
             $product = $this->productService->setModel($product)->update(data: $request->validated(),events: [
                 ProductUpdated::class,
-            ])->syncCats(catIds: $request->get('cat_ids'))->getModel(asResource: true,attributes: $resources->attributes(),relations: $resources->relations());
+            ])->syncCats(catIds: $request->get('cats_ids'))->getModel(asResource: true,attributes: $resources->attributes(),relations: $resources->relations());
             return apiResponse([
                 'product' => $product,
             ],__('callmeaf-base::v1.successful_updated', [

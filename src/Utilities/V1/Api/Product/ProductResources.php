@@ -83,7 +83,7 @@ class ProductResources extends Resources
                 'expired_at_text',
                 'created_at_text',
                 'updated_at_text',
-                'cat_ids',
+                'cats_ids',
                 'author',
                 '!author' => [
                     'id',

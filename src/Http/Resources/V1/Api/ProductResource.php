@@ -42,7 +42,7 @@ class ProductResource extends JsonResource
             'deleted_at' => fn() => $this->deleted_at,
             'deleted_at_text' => fn() => $this->deletedAtText,
             'image' => fn() => $this->image ? new (config('callmeaf-media.model_resource'))($this->image,only: $this->only['!image'] ?? []) : null,
-            'cat_ids' => fn() => $this->cats()->pluck('id'),
+            'cats_ids' => fn() => $this->cats()->pluck('id'),
             'cats' => fn() => $this->cats->count() ? new (config('callmeaf-product-category.model_resource_collection'))($this->cats,only: $this->only['!cats'] ?? []) : null,
             'author' => fn() => $this->author ? new (config('callmeaf-user.model_resource'))($this->author,only: $this->only['!author'] ?? []) : null,
             'province' => fn() => $this->province ? new (config('callmeaf-province.model_resource'))($this->province,only: $this->only['!province'] ?? []) : null,

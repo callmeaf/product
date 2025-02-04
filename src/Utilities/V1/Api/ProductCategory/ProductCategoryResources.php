@@ -66,7 +66,9 @@ class ProductCategoryResources extends Resources
     public function show(): self
     {
         $this->data = [
-            'relations' => [],
+            'relations' => [
+                'parent'
+            ],
             'attributes' => [
                 'id',
                 'parent_id',
@@ -87,6 +89,11 @@ class ProductCategoryResources extends Resources
                     'collection_name',
                     'size',
                     'url',
+                ],
+                'parent',
+                '!parent' => [
+                    'id',
+                    'title'
                 ],
             ],
         ];

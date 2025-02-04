@@ -35,8 +35,8 @@ class ProductStoreRequest extends FormRequest
             'content' => ['string','min:3','max:700'],
             'published_at' => ['date_format:' . DateTimeFormat::DATE_TIME_WITH_DASH_AND_TIME_WITH_DOUBLE_POINT->value],
             'expired_at' => ['date_format:' . DateTimeFormat::DATE_TIME_WITH_DASH_AND_TIME_WITH_DOUBLE_POINT->value],
-            'cat_ids' => ['array'],
-            'cat_ids.*' => [Rule::exists(config('callmeaf-product-category.model'),'id')->where(localScope())],
+            'cats_ids' => ['array'],
+            'cats_ids.*' => [Rule::exists(config('callmeaf-product-category.model'),'id')->where(localScope())],
             ...slugValidationRules(config('callmeaf-product.model')),
         ];
 
