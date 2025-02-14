@@ -26,8 +26,6 @@ class ProductFormRequestValidator extends FormRequestValidator
             'content' => false,
             'published_at' => false,
             'expired_at' => false,
-            'cats_ids' => false,
-            'cats_ids.*' => true,
         ];
 
         if(authUser(request: $this->request)?->isSuperAdminOrAdmin()) {
@@ -97,6 +95,14 @@ class ProductFormRequestValidator extends FormRequestValidator
     {
         return [
             'image' => true,
+        ];
+    }
+
+    public function syncCats(): array
+    {
+        return [
+            'cats_ids' => false,
+            'cats_ids.*' => true,
         ];
     }
 }

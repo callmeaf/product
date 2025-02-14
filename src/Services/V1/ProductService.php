@@ -42,9 +42,9 @@ class ProductService extends BaseService implements ProductServiceInterface
          */
         $productCategoryService = app(config('callmeaf-product-category.service'));
         $defaultCatsIds = $productCategoryService->freshQuery()->where(column: 'type',valueOrOperation: ProductCategoryType::DEFAULT->value)->all(columns: [$catIdColumn])->getCollection()->pluck($catIdColumn)->toArray();
-        $this->freshQuery()->select(columns: [$idColumn])->where(column: $idColumn,valueOrOperation: $productIds)->getQuery()->chunkById(count: 50,callback: function(\Illuminate\Support\Collection $products) use ($defaultCatsIds) {
+        $this->freshQuery()->select(columns: [$idColumn])->where(column: $idColumn,valueOrOperation: $productIds)->getQuery()->with('cats')->chunkById(count: 50,callback: function(\Illuminate\Support\Collection $products) use ($defaultCatsIds) {
             $products->each(function($product) use ($defaultCatsIds) {
-                $this->setModel($product)->syncCats(catIds: $product->cats()->pluck('id')->merge($defaultCatsIds)->unique()->toArray());
+                $this->setModel($product)->syncCats(catIds: $product->cats->pluck('id')->merge($defaultCatsIds)->unique()->toArray());
             });
         },column: $idColumn);
         return $this;

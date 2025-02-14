@@ -69,6 +69,8 @@ class Product extends Model implements HasResponseTitles,HasEnum,HasMedia
             'destroy' => $this->title ?? $default,
             'restore' => $this->title ?? $default,
             'force_destroy' => $this->title ?? $default,
+            'image_update' => $this->title ?? $default,
+            'sync_cats' => $this->title ?? $default,
         ][$key instanceof ResponseTitle ? $key->value : $key];
     }
 

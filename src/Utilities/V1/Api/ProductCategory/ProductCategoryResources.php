@@ -199,7 +199,9 @@ class ProductCategoryResources extends Resources
     public function trashed(): Resources
     {
         $this->data = [
-            'relations' => [],
+            'relations' => [
+                'parent'
+            ],
             'columns' => [
                 'id',
                 'parent_id',
@@ -224,6 +226,11 @@ class ProductCategoryResources extends Resources
                 'updated_at_text',
                 'deleted_at',
                 'deleted_at_text',
+                'parent',
+                '!parent' => [
+                    'id',
+                    'title'
+                ],
             ],
         ];
         return $this;

@@ -5,9 +5,7 @@ namespace Callmeaf\Product\Http\Requests\V1\Api;
 use Callmeaf\Base\Enums\DateTimeFormat;
 use Callmeaf\Product\Enums\ProductStatus;
 use Callmeaf\Product\Enums\ProductType;
-use Illuminate\Database\Query\Builder;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Enum;
 
@@ -38,8 +36,6 @@ class ProductUpdateRequest extends FormRequest
             'content' => ['string','min:3','max:700'],
             'published_at' => ['date_format:' . DateTimeFormat::DATE_TIME_WITH_DASH_AND_TIME_WITH_DOUBLE_POINT->value],
             'expired_at' => ['date_format:' . DateTimeFormat::DATE_TIME_WITH_DASH_AND_TIME_WITH_DOUBLE_POINT->value],
-            'cats_ids' => ['array'],
-            'cats_ids.*' => [Rule::exists(config('callmeaf-product-category.model'),'id')->where(localScope())],
             ...slugValidationRules(config('callmeaf-product.model'),ignore: $productCategoryId),
         ];
 

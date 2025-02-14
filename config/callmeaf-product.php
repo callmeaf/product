@@ -40,6 +40,9 @@ return [
         \Callmeaf\Product\Events\ProductImageUpdated::class => [
             // listeners
         ],
+        \Callmeaf\Product\Events\ProductSyncCats::class => [
+            // listeners
+        ],
     ],
     'validations' => [
         'product' => \Callmeaf\Product\Utilities\V1\Api\Product\ProductFormRequestValidator::class,

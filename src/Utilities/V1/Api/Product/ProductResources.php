@@ -66,6 +66,7 @@ class ProductResources extends Resources
                 'author',
                 'province',
                 'variations',
+                'cats',
             ],
             'attributes' => [
                 'id',
@@ -83,11 +84,11 @@ class ProductResources extends Resources
                 'expired_at_text',
                 'created_at_text',
                 'updated_at_text',
-                'cats_ids',
                 'author',
                 '!author' => [
                     'id',
-                    'mobile'
+                    'mobile',
+                    'full_name',
                 ],
                 'province',
                 '!province' => [
@@ -100,11 +101,13 @@ class ProductResources extends Resources
                     'status',
                     'status_text',
                     'sku',
-                    'title',
                     'price',
                     'price_text',
                     'discount_price',
                     'discount_price_text',
+                    'stock',
+                    'title',
+                    'content',
                     'created_at_text',
                     'updated_at_text',
                     'image',
@@ -130,6 +133,11 @@ class ProductResources extends Resources
                         'created_at_text',
                         'updated_at_text',
                     ],
+                ],
+                'cats',
+                '!cats' => [
+                    'id',
+                    'title',
                 ],
             ],
         ];
@@ -314,6 +322,35 @@ class ProductResources extends Resources
                     'mime_type',
                     'disk',
                     'size',
+                ],
+            ],
+        ];
+        return $this;
+    }
+
+
+    public function syncCats(): self
+    {
+        $this->data = [
+            'relations' => [
+                'cats'
+            ],
+            'attributes' => [
+                'id',
+                'type',
+                'type_text',
+                'status',
+                'status_text',
+                'title',
+                'slug',
+                'published_at_text',
+                'expired_at_text',
+                'created_at_text',
+                'updated_at_text',
+                'cats',
+                '!cats' => [
+                    'id',
+                    'title',
                 ],
             ],
         ];

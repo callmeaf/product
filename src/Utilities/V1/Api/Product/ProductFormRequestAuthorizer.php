@@ -66,4 +66,9 @@ class ProductFormRequestAuthorizer extends FormRequestAuthorizer
     {
         return userCan(PermissionName::PRODUCT_STORE);
     }
+
+    public function syncCats(): bool
+    {
+        return userCan(PermissionName::PRODUCT_STORE);
+    }
 }
