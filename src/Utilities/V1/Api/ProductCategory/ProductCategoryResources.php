@@ -93,7 +93,8 @@ class ProductCategoryResources extends Resources
                 'parent',
                 '!parent' => [
                     'id',
-                    'title'
+                    'title',
+                    'slug'
                 ],
             ],
         ];

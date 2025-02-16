@@ -51,8 +51,6 @@ class ProductFormRequestValidator extends FormRequestValidator
             'content' => false,
             'published_at' => false,
             'expired_at' => false,
-            'cats_ids' => false,
-            'cats_ids.*' => true,
         ];
 
         if(authUser(request: $this->request)?->isSuperAdminOrAdmin()) {

@@ -94,6 +94,7 @@ class ProductResources extends Resources
                 '!province' => [
                     'id',
                     'name',
+                    'slug',
                 ],
                 'variations',
                 '!variations' => [
@@ -138,6 +139,7 @@ class ProductResources extends Resources
                 '!cats' => [
                     'id',
                     'title',
+                    'slug'
                 ],
             ],
         ];
