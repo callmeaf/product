@@ -67,6 +67,7 @@ class ProductResources extends Resources
                 'province',
                 'variations',
                 'cats',
+                'media'
             ],
             'attributes' => [
                 'id',
@@ -89,6 +90,22 @@ class ProductResources extends Resources
                     'id',
                     'mobile',
                     'full_name',
+                ],
+                'image',
+                '!image' => [
+                    'id',
+                    'file_name',
+                    'collection_name',
+                    'size',
+                    'url',
+                ],
+                'images',
+                '!images' => [
+                    'id',
+                    'file_name',
+                    'collection_name',
+                    'size',
+                    'url',
                 ],
                 'province',
                 '!province' => [

@@ -96,6 +96,14 @@ class ProductFormRequestValidator extends FormRequestValidator
         ];
     }
 
+    public function imagesUpdate(): array
+    {
+        return [
+            'images' => true,
+            'images.*' => true,
+        ];
+    }
+
     public function syncCats(): array
     {
         return [

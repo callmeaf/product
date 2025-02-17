@@ -8,6 +8,7 @@ use Callmeaf\Media\Enums\MediaCollection;
 use Callmeaf\Media\Enums\MediaDisk;
 use Callmeaf\Product\Events\ProductDestroyed;
 use Callmeaf\Product\Events\ProductForceDestroyed;
+use Callmeaf\Product\Events\ProductImagesUpdated;
 use Callmeaf\Product\Events\ProductImageUpdated;
 use Callmeaf\Product\Events\ProductIndexed;
 use Callmeaf\Product\Events\ProductRestored;
@@ -19,6 +20,7 @@ use Callmeaf\Product\Events\ProductTrashed;
 use Callmeaf\Product\Events\ProductUpdated;
 use Callmeaf\Product\Http\Requests\V1\Api\ProductDestroyRequest;
 use Callmeaf\Product\Http\Requests\V1\Api\ProductForceDestroyRequest;
+use Callmeaf\Product\Http\Requests\V1\Api\ProductImagesUpdateRequest;
 use Callmeaf\Product\Http\Requests\V1\Api\ProductImageUpdateRequest;
 use Callmeaf\Product\Http\Requests\V1\Api\ProductIndexRequest;
 use Callmeaf\Product\Http\Requests\V1\Api\ProductRestoreRequest;
@@ -224,13 +226,31 @@ class ProductController extends ApiController
     {
         try {
             $resources = $this->productResources->imageUpdate();
-            $product = $this->productService->setModel($product)->createMedia(file: $request->file('image'),collection: MediaCollection::IMAGE,disk: MediaDisk::VARIATIONS)->getModel(asResource: true,attributes: $resources->attributes(),relations: $resources->relations(),events: [
+            $product = $this->productService->setModel($product)->createMedia(file: $request->file('image'),collection: MediaCollection::IMAGE,disk: MediaDisk::PRODUCTS)->getModel(asResource: true,attributes: $resources->attributes(),relations: $resources->relations(),events: [
                 ProductImageUpdated::class,
             ]);
             return apiResponse([
                 'product' => $product,
             ],__('callmeaf-base::v1.successful_updated',[
                 'title' => $product->responseTitles('image_update')
+            ]));
+        } catch (\Exception $exception) {
+            report($exception);
+            return apiResponse([],$exception);
+        }
+    }
+
+    public function imagesUpdate(ProductImagesUpdateRequest $request,Product $product)
+    {
+        try {
+            $resources = $this->productResources->imageUpdate();
+            $product = $this->productService->setModel($product)->createMultiMedia(files: $request->file('images'),collection: MediaCollection::IMAGES,disk: MediaDisk::PRODUCTS,removeOlderMedia: false)->getModel(asResource: true,attributes: $resources->attributes(),relations: $resources->relations(),events: [
+                ProductImagesUpdated::class,
+            ]);
+            return apiResponse([
+                'product' => $product,
+            ],__('callmeaf-base::v1.successful_updated',[
+                'title' => $product->responseTitles('images_update')
             ]));
         } catch (\Exception $exception) {
             report($exception);

@@ -42,6 +42,7 @@ class ProductCollection extends ResourceCollection
                 'deleted_at' => fn() => $product->deleted_at,
                 'deleted_at_text' => fn() => $product->deletedAtText,
                 'image' => fn() => $product->image ? new (config('callmeaf-media.model_resource'))($product->image,only: $this->only['!image'] ?? []) : null,
+                'images' => fn() => $product->images->count() ? new (config('callmeaf-media.model_resource_collection'))($product->images,only: $this->only['!images'] ?? []) : null,
                 'province' => fn() => $product->province ? new (config('callmeaf-province.model_resource'))($product->province,only: $this->only['!province'] ?? []) : null,
                 'cats' => fn() => $product->cats->count() ? new (config('callmeaf-product-category.model_resource_collection'))($this->cats,only: $this->only['!cats'] ?? []) : null,
             ],only: $this->only)),

@@ -22,6 +22,7 @@ Route::prefix(config('callmeaf-base.api.prefix_url'))->as(config('callmeaf-base.
             Route::patch('/restore','restore')->name('restore');
             Route::delete('/force','forceDestroy')->name('force_destroy');
             Route::patch('/image','imageUpdate')->name('image.update');
+            Route::patch('/images','imagesUpdate')->name('images.update');
             Route::patch('/cats','syncCats')->name('cats.sync');
         });
         Route::get('/trashed/index','trashed')->name('trashed.index');
