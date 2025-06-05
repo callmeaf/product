@@ -1,0 +1,26 @@
+{
+    "name": "callmeaf/product",
+    "description": "Manage Products",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Callmeaf\\Product\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "callmeaf",
+            "email": "alikhoshkar2000@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Callmeaf\\Product\\CallmeafProductServiceProvider"
+            ]
+        }
+    }
+}
