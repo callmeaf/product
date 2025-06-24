@@ -89,6 +89,9 @@ return [
             \Callmeaf\Product\App\Events\Admin\V1\ProductTypeUpdated::class => [
                 // listeners
             ],
+            \Callmeaf\Product\App\Events\Admin\V1\ProductSyncedCategories::class => [
+                // listeners
+            ],
         ],
     ],
     'requests' => [

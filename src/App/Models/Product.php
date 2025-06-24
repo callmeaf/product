@@ -12,7 +12,10 @@ use Callmeaf\Base\App\Traits\Model\HasType;
 use Callmeaf\Base\App\Traits\Model\Publishable;
 use Callmeaf\Media\App\Models\Contracts\HasMedia;
 use Callmeaf\Media\App\Traits\InteractsWithMedia;
+use Callmeaf\ProductCategory\App\Repo\Contracts\ProductCategoryRepoInterface;
 use Callmeaf\ProductContent\App\Repo\Contracts\ProductContentRepoInterface;
+use Callmeaf\ProductToCategory\App\Repo\Contracts\ProductToCategoryRepoInterface;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -62,6 +65,19 @@ class Product extends BaseModel implements HasMedia
     public function images(): MorphMany
     {
         return $this->media()->where('collection_name',$this->mediaCollectionName());
+    }
+
+    public function categories(): BelongsToMany
+    {
+        /**
+         * @var ProductCategoryRepoInterface $productCategoryRepo
+         */
+        $productCategoryRepo = app(ProductCategoryRepoInterface::class);
+        /**
+         * @var ProductToCategoryRepoInterface $productToCategoryRepo
+         */
+        $productToCategoryRepo = app(ProductToCategoryRepoInterface::class);
+        return $this->belongsToMany($productCategoryRepo->getModel()::class,$productToCategoryRepo->getTable(),'product_slug','category_slug')->using($productToCategoryRepo->getModel()::class);
     }
 
     /**

@@ -5,6 +5,7 @@ namespace Callmeaf\Product\App\Http\Resources\Admin\V1;
 use Callmeaf\Base\App\Enums\DateTimeFormat;
 use Callmeaf\Media\App\Repo\Contracts\MediaRepoInterface;
 use Callmeaf\Product\App\Models\Product;
+use Callmeaf\ProductCategory\App\Repo\Contracts\ProductCategoryRepoInterface;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -24,6 +25,8 @@ class ProductResource extends JsonResource
          * @var MediaRepoInterface $mediaRepo
          */
         $mediaRepo = app(MediaRepoInterface::class);
+
+        $productCategoryRepo = app(ProductCategoryRepoInterface::class);
         return [
             'slug' => $this->slug,
             'title' => $this->title,
@@ -40,6 +43,7 @@ class ProductResource extends JsonResource
             'deleted_at' => $this->deleted_at,
             'deleted_at_text' => $this->deletedAtText(),
             'images' => $mediaRepo->toResourceCollection($this->whenLoaded('images')),
+            'categories' => $productCategoryRepo->toResourceCollection($this->whenLoaded('categories')),
         ];
     }
 }

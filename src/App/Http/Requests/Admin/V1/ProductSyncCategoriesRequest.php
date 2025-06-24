@@ -2,9 +2,11 @@
 
 namespace Callmeaf\Product\App\Http\Requests\Admin\V1;
 
+use Callmeaf\ProductCategory\App\Repo\Contracts\ProductCategoryRepoInterface;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class ProductTypeUpdateRequest extends FormRequest
+class ProductSyncCategoriesRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -19,10 +21,11 @@ class ProductTypeUpdateRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
+    public function rules(ProductCategoryRepoInterface $productCategoryRepo): array
     {
         return [
-            //
+            'cats_ids' => ['nullable','array'],
+            'cats_ids.*' => ['required',Rule::exists($productCategoryRepo->getTable(),$productCategoryRepo->getModel()->getKeyName())]
         ];
     }
 }

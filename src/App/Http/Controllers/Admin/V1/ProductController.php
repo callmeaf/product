@@ -45,7 +45,8 @@ class ProductController extends AdminController implements HasMiddleware
     public function show(string $id)
     {
         return $this->productRepo->builder(fn(Builder $query) => $query->with([
-            'images'
+            'images',
+            'categories'
         ]))->findById(value: $id);
     }
 
@@ -101,5 +102,10 @@ class ProductController extends AdminController implements HasMiddleware
         return $productContentRepo->toResource(
             $product->resource->content,
         );
+    }
+
+    public function syncCategories(string $id)
+    {
+        return $this->productRepo->syncCategories(id: $id,catsIds: $this->request->get('cats_ids') ?? []);
     }
 }

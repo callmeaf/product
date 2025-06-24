@@ -12,5 +12,10 @@ use Callmeaf\Product\App\Http\Resources\Api\V1\ProductResource;
  */
 interface ProductRepoInterface extends BaseRepoInterface
 {
-
+    /**
+     * @param string $id
+     * @param array $catsIds
+     * @return ProductResource
+     */
+    public function syncCategories(string $id,array $catsIds);
 }
