@@ -42,7 +42,7 @@ class ProductStoreRequest extends FormRequest
     protected function prepareForValidation()
     {
         $this->merge([
-            'author_identifier' => $this->get('author_identifier') ?: $this->user()->getRouteKey(),
+            'author_identifier' => $this->get('author_identifier') ?: $this->user()->identifier(),
         ]);
     }
 }

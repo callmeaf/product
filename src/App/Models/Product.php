@@ -88,7 +88,7 @@ class Product extends BaseModel implements HasMedia
     {
         $user ??= Auth::user();
 
-        return $user?->getRouteKey() === $this->author_identifier;
+        return $user?->identifier() === $this->author_identifier;
     }
 
     public static function sluggableColumn(): string

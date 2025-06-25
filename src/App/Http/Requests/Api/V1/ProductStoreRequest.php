@@ -43,7 +43,7 @@ class ProductStoreRequest extends FormRequest
     {
         $this->merge([
             'status' => $this->get('status') === ProductStatus::DRAFT->value ? ProductStatus::DRAFT->value : ProductStatus::PENDING_REVIEW->value,
-            'author_identifier' => $this->user()->getRouteKey(),
+            'author_identifier' => $this->user()->identifier(),
         ]);
     }
 }
