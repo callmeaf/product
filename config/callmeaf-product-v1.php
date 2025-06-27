@@ -161,6 +161,7 @@ return [
     'enums' => [
          'status' => \Callmeaf\Product\App\Enums\ProductStatus::class,
          'type' => \Callmeaf\Product\App\Enums\ProductType::class,
+         'delivery_type' => \Callmeaf\Product\App\Enums\ProductDeliveryType::class,
     ],
      'exports' => [
         RequestType::API->value => [

@@ -15,6 +15,7 @@ use Callmeaf\Media\App\Traits\InteractsWithMedia;
 use Callmeaf\ProductCategory\App\Repo\Contracts\ProductCategoryRepoInterface;
 use Callmeaf\ProductContent\App\Repo\Contracts\ProductContentRepoInterface;
 use Callmeaf\ProductToCategory\App\Repo\Contracts\ProductToCategoryRepoInterface;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -35,6 +36,7 @@ class Product extends BaseModel implements HasMedia
         'title',
         'status',
         'type',
+        'delivery_type',
         'author_identifier',
         'summary',
         'published_at',
@@ -78,6 +80,16 @@ class Product extends BaseModel implements HasMedia
          */
         $productToCategoryRepo = app(ProductToCategoryRepoInterface::class);
         return $this->belongsToMany($productCategoryRepo->getModel()::class,$productToCategoryRepo->getTable(),'product_slug','category_slug')->using($productToCategoryRepo->getModel()::class);
+    }
+
+    public function deliveryTypeText(): Attribute
+    {
+        return Attribute::get(
+            fn() => \Base::enumCaseTranslator(
+                \Base::getPackageNameFromModel(model: self::class),
+                $this->delivery_type,
+            )
+        );
     }
 
     /**

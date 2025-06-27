@@ -3,6 +3,7 @@
 namespace Callmeaf\Product\App\Http\Requests\Admin\V1;
 
 use Callmeaf\Base\App\Enums\DateTimeFormat;
+use Callmeaf\Product\App\Enums\ProductDeliveryType;
 use Callmeaf\Product\App\Enums\ProductStatus;
 use Callmeaf\Product\App\Enums\ProductType;
 use Callmeaf\User\App\Repo\Contracts\UserRepoInterface;
@@ -31,6 +32,7 @@ class ProductUpdateRequest extends FormRequest
             'title' => ['required','string','max:255'],
             'type' => ['required',new Enum(ProductType::class)],
             'status' => ['required',new Enum(ProductStatus::class)],
+            'delivery_type' => ['required',new Enum(ProductDeliveryType::class)],
             'author_identifier' => ['required',Rule::exists($userRepo->getTable(),$userRepo->getModel()->getRouteKeyName())],
             'summary' => ['nullable','string','max:1000'],
             'published_at' => ['nullable',Rule::date()->format(DateTimeFormat::DATE_TIME->value)],

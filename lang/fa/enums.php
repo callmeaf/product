@@ -1,5 +1,6 @@
 <?php
 
+use Callmeaf\Product\App\Enums\ProductDeliveryType;
 use Callmeaf\Product\App\Enums\ProductStatus;
 use Callmeaf\Product\App\Enums\ProductType;
 
@@ -14,5 +15,9 @@ return [
     ProductType::class => [
         ProductType::PRODUCT->name => 'محصول',
         ProductType::PACKAGE->name => 'پکیج',
+    ],
+    ProductDeliveryType::class => [
+        ProductDeliveryType::PHYSICAL->name => 'فیزیکی',
+        ProductDeliveryType::DIGITAL->name => 'دیجیتالی',
     ],
 ];

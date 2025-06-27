@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string('slug')->primary();
             $table->string('status');
             $table->string('type');
+            $table->string('delivery_type');
             /**
              * @var \Callmeaf\User\App\Repo\Contracts\UserRepoInterface $userRepo
              */

@@ -32,6 +32,8 @@ class ProductResource extends JsonResource
             'status_text' => $this->statusText,
             'type' => $this->type,
             'type_text' => $this->typeText,
+            'delivery_type' => $this->delivery_type,
+            'delivery_type_text' => $this->deliveryTypeText,
             'summary' => $this->summary,
             'created_at' => $this->created_at,
             'created_at_text' => $this->createdAtText(DateTimeFormat::DATE_TIME),
