@@ -21,7 +21,7 @@ return new class extends Migration
              */
             $userRepo = app(\Callmeaf\User\App\Repo\Contracts\UserRepoInterface::class);
             $table->string('author_identifier')->nullable();
-            $table->foreign('author_identifier')->references($userRepo->getModel()->getRouteKeyName())->on($userRepo->getTable())->cascadeOnUpdate()->nullOnDelete();
+            $table->foreign('author_identifier')->references($userRepo->getModel()->identifierKey())->on($userRepo->getTable())->cascadeOnUpdate()->nullOnDelete();
             $table->string('title');
             $table->text('summary')->nullable();
             $table->dateTime('published_at')->nullable();

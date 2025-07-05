@@ -31,7 +31,7 @@ class ProductStoreRequest extends FormRequest
             'title' => ['required','string','max:255'],
             'type' => ['required',new Enum(ProductType::class)],
             'status' => ['required',new Enum(ProductStatus::class)],
-            'author_identifier' => ['required',Rule::exists($userRepo->getTable(),$userRepo->getModel()->getRouteKeyName())],
+            'author_identifier' => ['required',Rule::exists($userRepo->getTable(),$userRepo->getModel()->identifierKey())],
             'summary' => ['nullable','string','max:1000'],
             'published_at' => ['nullable',Rule::date()->format(DateTimeFormat::DATE_TIME->value)],
             'images' => ['nullable','array'],
