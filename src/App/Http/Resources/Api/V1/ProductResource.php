@@ -26,6 +26,7 @@ class ProductResource extends JsonResource
         $mediaRepo = app(MediaRepoInterface::class);
         return [
             'slug' => $this->slug,
+            'store_slug' => $this->store_slug,
             'title' => $this->title,
             'author_identifier' => $this->author_identifier,
             'status' => $this->status,

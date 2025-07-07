@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->string('slug')->primary();
+            /**
+             * @var \Callmeaf\Store\App\Repo\Contracts\StoreRepoInterface $storeRepo
+             */
+            $storeRepo = app(\Callmeaf\Store\App\Repo\Contracts\StoreRepoInterface::class);
+            $table->string('store_slug')->nullable();
+            $table->foreign('store_slug')->references($storeRepo->getModel()->getKeyName())->on($storeRepo->getTable())->cascadeOnUpdate()->nullOnDelete();
+
             $table->string('status');
             $table->string('type');
             $table->string('delivery_type');
@@ -25,7 +32,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('summary')->nullable();
             $table->dateTime('published_at')->nullable();
-             $table->softDeletes();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

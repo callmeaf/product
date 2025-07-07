@@ -33,6 +33,7 @@ class Product extends BaseModel implements HasMedia
 
     protected $fillable = [
         'slug',
+        'store_slug',
         'title',
         'status',
         'type',

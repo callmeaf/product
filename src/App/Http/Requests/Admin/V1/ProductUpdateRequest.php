@@ -6,6 +6,7 @@ use Callmeaf\Base\App\Enums\DateTimeFormat;
 use Callmeaf\Product\App\Enums\ProductDeliveryType;
 use Callmeaf\Product\App\Enums\ProductStatus;
 use Callmeaf\Product\App\Enums\ProductType;
+use Callmeaf\Store\App\Repo\Contracts\StoreRepoInterface;
 use Callmeaf\User\App\Repo\Contracts\UserRepoInterface;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -26,9 +27,10 @@ class ProductUpdateRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(UserRepoInterface $userRepo): array
+    public function rules(UserRepoInterface $userRepo,StoreRepoInterface $storeRepo): array
     {
         return [
+            'store_slug' => ['nullable',Rule::exists($storeRepo->getTable(),$storeRepo->getModel()->getKeyName())],
             'title' => ['required','string','max:255'],
             'type' => ['required',new Enum(ProductType::class)],
             'status' => ['required',new Enum(ProductStatus::class)],
